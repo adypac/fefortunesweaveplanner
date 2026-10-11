@@ -422,11 +422,13 @@ button {
 #view-calendar.active {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
-  height: 100%;
-  overflow: hidden;
-  padding-bottom: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding-bottom: 3.5rem;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 #view-bird-time.active {
@@ -2837,6 +2839,32 @@ button {
 
 /* Planner Tab Responsive Compact Layout for Smaller Screens */
 @media (max-width: 900px) {
+  #view-matrix.active {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 3.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+
+  .table-container {
+    overflow-y: visible !important;
+    overflow-x: auto !important;
+    flex: none !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overscroll-behavior: auto !important;
+    touch-action: pan-x pan-y !important;
+    margin-bottom: 1.5rem !important;
+  }
+
   .main-content {
     padding: 0.5rem 0.75rem 0.5rem;
   }
@@ -3948,60 +3976,36 @@ button {
 .calendar-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.65rem;
   padding: 0.25rem 0 0.5rem 0;
-  height: 100%;
-  min-height: 0;
-  flex: 1;
+  height: auto !important;
+  min-height: 100%;
+  flex: 1 1 auto;
 }
 
 #calViewBody {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
-  height: 100%;
-  overflow-y: auto;
+  height: auto !important;
+  overflow-y: visible !important;
   overflow-x: hidden;
   padding-right: 0.35rem;
   padding-bottom: 2rem;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-  scrollbar-width: thin;
-  scrollbar-color: #475569 rgba(11, 15, 25, 0.7);
-}
-
-#calViewBody::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-#calViewBody::-webkit-scrollbar-track {
-  background: rgba(11, 15, 25, 0.7);
-  border-radius: 4px;
-}
-#calViewBody::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 4px;
-  border: 1px solid rgba(216, 178, 94, 0.35);
-}
-#calViewBody::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
-}
-
-/* Route Tabs & View Modes inside Navigation Bar */
-.cal-route-mode-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--border-subtle);
 }
 
 .calendar-route-tabs {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   gap: 0.35rem;
+}
+
+.calendar-route-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .cal-route-tabs-label {
@@ -4077,11 +4081,11 @@ button {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.5rem;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 0.65rem 0.95rem;
+  padding: 0.55rem 0.85rem;
 }
 
 .cal-month-nav-row {
@@ -4287,12 +4291,19 @@ button {
   align-items: center;
   gap: 0.35rem;
   overflow-x: auto;
-  padding-bottom: 0.25rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.15rem;
   max-width: 100%;
+  flex-wrap: nowrap;
+}
+
+.cal-month-strip::-webkit-scrollbar {
+  display: none;
 }
 
 .cal-month-pill {
-  padding: 0.28rem 0.65rem;
+  padding: 0.25rem 0.6rem;
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: var(--radius-sm);
@@ -4305,6 +4316,7 @@ button {
   align-items: center;
   gap: 0.35rem;
   transition: var(--transition);
+  flex-shrink: 0;
 }
 
 .cal-month-pill:hover {
@@ -4331,13 +4343,20 @@ button {
 .cal-week-strip {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 0.4rem 0.65rem;
+  padding: 0.3rem 0.5rem;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   max-width: 100%;
+  flex-wrap: nowrap;
+}
+
+.cal-week-strip::-webkit-scrollbar {
+  display: none;
 }
 
 .cal-week-strip-label {
@@ -4351,8 +4370,8 @@ button {
 .cal-week-pills-row {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
+  gap: 0.3rem;
+  flex-wrap: nowrap;
 }
 
 .cal-week-pill {
@@ -4580,9 +4599,10 @@ button {
 
 .cal-continuous-week-track {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible !important;
+  touch-action: pan-x pan-y;
   padding: 0.5rem 0.25rem 1.25rem 0.25rem;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
@@ -4818,25 +4838,24 @@ button {
 
 .cal-week-events-wrap {
   flex: 1;
-  padding: 0.5rem 0.45rem;
+  padding: 0.45rem 0.4rem;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  overflow-y: auto;
-  max-height: calc(100vh - 360px);
-  min-height: 260px;
+  gap: 0.4rem;
+  overflow-y: visible;
+  min-height: 100px;
 }
 
 .cal-week-no-events {
   text-align: center;
-  padding: 1.5rem 0.4rem;
+  padding: 0.75rem 0.35rem;
   color: var(--text-dim);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  min-height: 160px;
+  height: auto;
+  min-height: 50px;
 }
 
 .cal-week-no-events.ft-active {
@@ -4844,7 +4863,7 @@ button {
   background: rgba(56, 189, 248, 0.05);
   border-radius: var(--radius-sm);
   border: 1px dashed rgba(56, 189, 248, 0.25);
-  padding: 1.25rem 0.5rem;
+  padding: 0.75rem 0.4rem;
 }
 
 .cal-week-no-events-icon {
@@ -5857,6 +5876,141 @@ button {
 }
 
 @media (max-width: 768px) {
+  #view-calendar.active {
+    overflow-y: auto !important;
+    height: auto !important;
+    padding-bottom: 4rem;
+  }
+  .calendar-panel {
+    gap: 0.45rem;
+    padding: 0.15rem 0 0.5rem 0;
+  }
+  .calendar-nav-bar {
+    padding: 0.4rem 0.55rem;
+    gap: 0.35rem;
+  }
+  .cal-route-mode-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+    padding-bottom: 0.35rem;
+  }
+  .cal-route-tabs-label {
+    display: none;
+  }
+  .calendar-route-tabs {
+    width: 100%;
+    padding-bottom: 2px;
+  }
+  .cal-route-pill {
+    padding: 0.2rem 0.55rem;
+    font-size: 0.74rem;
+  }
+  .cal-view-modes {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cal-view-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.22rem 0.35rem;
+    font-size: 0.72rem;
+  }
+  .cal-month-nav-row {
+    gap: 0.35rem;
+  }
+  .cal-month-title-group {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+  .cal-month-main-title {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .cal-chapter-nav-wrap {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.3rem;
+  }
+  .cal-chapter-select-box {
+    flex: 1;
+    min-width: 0;
+    padding: 0.18rem 0.4rem;
+  }
+  .cal-chapter-select {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.74rem;
+  }
+  .cal-btn-bookmark-jump,
+  .cal-btn-bookmark-star {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.45rem;
+  }
+  .cal-month-pill {
+    padding: 0.22rem 0.5rem;
+    font-size: 0.72rem;
+  }
+  .cal-week-pill {
+    padding: 0.18rem 0.45rem;
+    font-size: 0.72rem;
+  }
+  .cal-controls-row {
+    gap: 0.35rem;
+    padding-top: 0.35rem;
+  }
+  .cal-search-input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    font-size: 0.74rem;
+    padding: 0.25rem 0.55rem;
+  }
+  .cal-toggle-filters-btn {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.55rem;
+  }
+  .cal-continuous-week-track {
+    gap: 0.75rem;
+    padding: 0.35rem 0.15rem 1rem 0.15rem;
+  }
+  .cal-week-col-card {
+    width: 250px;
+    min-width: 250px;
+  }
+  .cal-week-col-header {
+    padding: 0.4rem 0.45rem 0.3rem;
+  }
+  .cal-week-col-saint {
+    display: none;
+  }
+  .cal-week-col-daynum {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 1rem;
+    margin-top: 0.1rem;
+  }
+  .cal-day-focus-btn {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+    margin-top: 0.2rem;
+  }
+  .cal-week-events-wrap {
+    padding: 0.35rem 0.3rem;
+    gap: 0.35rem;
+    min-height: 80px;
+  }
+  .cal-week-no-events {
+    padding: 0.6rem 0.2rem;
+    min-height: 40px;
+  }
+  .cal-week-event-card {
+    padding: 0.35rem 0.4rem;
+  }
+
   .cal-week-header,
   .cal-days-grid {
     min-width: 560px;
@@ -7391,8 +7545,8 @@ button {
   border-radius: var(--radius-sm);
 }
 
-/* --- Stat & Level Path Recommender (Custom Stat Advisor) --- */
-.stat-advisor-banner {
+/* --- Expected Stats Calculator --- */
+.exp-stats-banner {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7405,375 +7559,405 @@ button {
   border-radius: var(--radius-sm);
 }
 
-.stat-advisor-controls-row {
+.exp-stats-controls-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 768px) {
+  .exp-stats-controls-row {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+}
+
+.exp-stats-control-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-stats-num-input {
+  width: 64px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--gold);
+  padding: 0.25rem 0.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.exp-btn-step {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: #cbd5e1;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.exp-btn-step:hover {
+  background: rgba(216, 178, 94, 0.15);
+  border-color: var(--gold);
+  color: #fff;
+}
+
+.exp-stats-slider {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.exp-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.55rem;
+}
+
+.exp-preset-chip {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.exp-preset-chip:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+  color: #fff;
+}
+
+.exp-stats-class-dropdown {
+  width: 100%;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--gold);
+  padding: 0.4rem 0.6rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+/* Progression Chain Track */
+.exp-stats-track-card {
+  margin-bottom: 1.15rem;
+  padding: 0.75rem 0.95rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.exp-track-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
 }
 
-.stat-advisor-inputs-grid {
+.exp-chain-scroll-track {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.1rem 0.5rem 0.1rem;
+  scrollbar-width: thin;
+}
+
+.exp-chain-chip {
+  flex: 0 0 auto;
+  min-width: 160px;
+  padding: 0.5rem 0.65rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.exp-chain-select-wrap {
+  margin-bottom: 0.35rem;
+}
+
+.exp-chain-step-select {
+  width: 100%;
+  font-size: 0.77rem;
+  font-weight: 700;
+  color: var(--gold);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.35rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.exp-chain-chip.exp-chain-chip-target .exp-chain-step-select {
+  border-color: var(--gold);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.exp-chain-step-select:hover {
+  border-color: var(--gold);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.exp-chain-step-select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+.exp-chain-step-select option {
+  background: #0f172a;
+  color: #fff;
+  font-weight: normal;
+}
+
+.exp-chain-chip.exp-chain-chip-target {
+  background: rgba(216, 178, 94, 0.08);
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(216, 178, 94, 0.2);
+}
+
+.exp-chain-chip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.exp-chain-tier-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+}
+
+.exp-chain-chip.exp-chain-chip-target .exp-chain-tier-tag {
+  color: var(--gold);
+}
+
+.exp-chain-mov {
+  font-size: 0.8rem;
+}
+
+.exp-chain-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.25rem;
+}
+
+.exp-chain-levels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.exp-chain-gains-badge {
+  font-size: 0.68rem;
+  padding: 0.1rem 0.35rem;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34d399;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.exp-chain-arrow {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  flex: 0 0 auto;
+}
+
+/* 9 Stat Cards Grid */
+.exp-stats-grid-wrap {
+  margin-bottom: 1.15rem;
+}
+
+.exp-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.exp-stats-cards-grid {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   gap: 0.45rem;
 }
 
-@media (max-width: 900px) {
-  .stat-advisor-inputs-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (max-width: 550px) {
-  .stat-advisor-inputs-grid {
+@media (max-width: 1024px) {
+  .exp-stats-cards-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
   }
 }
 
-.stat-advisor-input-cell {
-  background: var(--bg-primary);
+@media (max-width: 480px) {
+  .exp-stats-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+}
+
+.exp-stat-card {
+  background: rgba(15, 23, 42, 0.6);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  padding: 0.4rem 0.45rem;
-  text-align: center;
-  transition: border-color 0.15s ease;
-}
-
-.stat-advisor-input-cell:focus-within {
-  border-color: var(--gold);
-}
-
-.stat-advisor-cell-header {
+  padding: 0.55rem 0.5rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.72rem;
-  margin-bottom: 0.25rem;
-}
-
-.stat-advisor-stat-name {
-  font-weight: 700;
-  color: #fff;
-}
-
-.stat-advisor-diff {
-  font-size: 0.68rem;
-  font-weight: 700;
-}
-
-.stat-advisor-number-input {
-  width: 100%;
-  box-sizing: border-box;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--gold);
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.25rem 0.2rem;
-  outline: none;
+  flex-direction: column;
   transition: all 0.15s ease;
 }
 
-.stat-advisor-number-input:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 6px var(--gold-glow);
-  background: #0f172a;
+.exp-stat-card:hover {
+  border-color: rgba(216, 178, 94, 0.4);
+  background: rgba(30, 41, 59, 0.7);
 }
 
-.stat-advisor-base-hint {
-  font-size: 0.65rem;
-  color: var(--text-dim);
-  margin-top: 2px;
-}
-
-/* --- Weapon & Skill Ranks Grid in Stat Advisor --- */
-.stat-advisor-ranks-wrap {
-  margin-bottom: 1.15rem;
-}
-
-.stat-advisor-ranks-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 0.45rem;
-}
-
-@media (max-width: 1100px) {
-  .stat-advisor-ranks-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .stat-advisor-ranks-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.stat-advisor-rank-cell {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.4rem 0.45rem;
-  text-align: center;
-  transition: border-color 0.15s ease;
-}
-
-.stat-advisor-rank-cell:focus-within {
-  border-color: var(--gold);
-}
-
-.stat-advisor-rank-name {
-  font-weight: 700;
-  color: #fff;
-  font-size: 0.72rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.aptitude-micro-badge {
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 0.05rem 0.22rem;
-  border-radius: 3px;
-}
-.aptitude-micro-badge.boon {
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.15);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-}
-.aptitude-micro-badge.bane {
-  color: #f87171;
-  background: rgba(248, 113, 113, 0.15);
-  border: 1px solid rgba(248, 113, 113, 0.35);
-}
-.aptitude-micro-badge.neutral {
-  color: var(--text-dim);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.stat-advisor-rank-select {
-  width: 100%;
-  box-sizing: border-box;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--gold);
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.22rem 0.2rem;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.stat-advisor-rank-select:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 6px var(--gold-glow);
-  background: #0f172a;
-}
-
-.stat-rec-summary-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
-  border: 1px solid rgba(216, 178, 94, 0.35);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 1.1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-.stat-rec-summary-top {
+.exp-stat-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.stat-rec-archetype-info {
-  flex: 1;
-  min-width: 240px;
-}
-
-.stat-rec-archetype-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--gold);
-  background: rgba(216, 178, 94, 0.12);
-  border: 1px solid rgba(216, 178, 94, 0.35);
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
   margin-bottom: 0.3rem;
 }
 
-.stat-rec-archetype-title {
-  font-size: 1.05rem;
+.exp-stat-label {
+  font-size: 0.75rem;
   font-weight: 700;
-  color: #fff;
-  margin: 0 0 0.25rem 0;
+  color: #e2e8f0;
 }
 
-.stat-rec-archetype-desc {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  line-height: 1.35;
-}
-
-.stat-rec-deployed-badge {
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid var(--gold);
-  border-radius: var(--radius-sm);
-  padding: 0.55rem 0.85rem;
-  box-shadow: 0 0 10px var(--gold-glow);
-  min-width: 220px;
-}
-
-.stat-rec-deployed-name {
-  font-size: 0.95rem;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.2rem;
-}
-
-.stat-rec-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.65rem;
-  margin-bottom: 1rem;
-}
-
-@media (max-width: 950px) {
-  .stat-rec-cards-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-}
-
-.stat-rec-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.45rem;
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.stat-rec-card:hover {
-  border-color: rgba(216, 178, 94, 0.5);
-  background: var(--bg-surface-hover);
-}
-
-.stat-rec-card.is-current-tier {
-  border-color: var(--gold);
-  background: linear-gradient(180deg, rgba(216, 178, 94, 0.08) 0%, rgba(19, 27, 46, 0.9) 100%);
-  box-shadow: 0 0 14px var(--gold-glow);
-}
-
-.stat-rec-card-tier-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.stat-rec-current-badge {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--gold);
-  background: rgba(216, 178, 94, 0.2);
-  border: 1px solid var(--gold);
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-}
-
-.stat-rec-level-gate {
+.exp-stat-exact {
   font-size: 0.68rem;
   color: var(--text-dim);
 }
 
-.stat-rec-class-title-row {
+.exp-stat-main-val {
   display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.95rem;
-  color: #fff;
-  margin-top: 0.2rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
 }
 
-.stat-rec-class-tags {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  flex-wrap: wrap;
+.exp-stat-big-num {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
 }
 
-.stat-rec-weaps {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  white-space: nowrap;
+.exp-stat-growth-tag {
+  font-size: 0.66rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+.exp-stat-meter-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
   overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 0.45rem;
 }
 
-.stat-rec-card-reason {
-  font-size: 0.72rem;
+.exp-stat-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, var(--gold));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.exp-stat-breakdown-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.67rem;
   color: #94a3b8;
-  line-height: 1.3;
   padding-top: 0.35rem;
-  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  border-top: 1px dashed rgba(255, 255, 255, 0.06);
 }
 
-.stat-rec-insights-box {
+.exp-stat-breakdown-row span {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Combat Overview */
+.exp-combat-overview-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: 0.75rem 0.95rem;
 }
 
-.stat-rec-insights-list {
+.exp-combat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.exp-combat-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.5rem;
+}
+
+.exp-combat-badge {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.6rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 2px;
 }
 
-.stat-rec-insight-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45rem;
-  font-size: 0.78rem;
-  color: #cbd5e1;
-  line-height: 1.4;
+.exp-combat-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
 }
 
-.stat-rec-insight-item strong {
+.exp-combat-val {
+  font-size: 0.95rem;
+  font-weight: 700;
   color: #fff;
 }
-
-.insight-bullet {
-  color: var(--gold);
-  font-weight: 700;
-}
-
-
 
   </style>
   <script>
@@ -20278,14 +20462,14 @@ if (typeof window !== 'undefined') {
       showStatFilter: false,
     },
     selectedBuildChar: 'Cai',
-    customBuildStats: {}, // charName -> { level: number, stats: { HP, Str, ... } }
+    expectedStatsInputs: {}, // charName -> { level: number, currentClass: string }
     collapsedSections: {
       growths: false,
       progression: false,
-      statAdvisor: false,
       abilities: false,
+      magic: false,
       suggestions: false,
-      magic: false
+      expectedStats: false
     },
     comparatorRoute: 'cai',
     comparatorCharA: null,
@@ -20380,8 +20564,9 @@ if (typeof window !== 'undefined') {
   const classMap = new Map();
   (FW.classes || []).forEach(cl => classMap.set(cl.name, cl));
 
-  // Classes by Tier (5 tiers supported)
+  // Classes by Tier (6 tiers supported)
   const classesByTier = {
+    starter: [],
     beginner: [],
     specialty: [],
     advanced: [],
@@ -20391,7 +20576,8 @@ if (typeof window !== 'undefined') {
 
   (FW.classes || []).forEach(cl => {
     const t = (cl.tier || '').toLowerCase();
-    if (t === 'beginner') classesByTier.beginner.push(cl);
+    if (t === 'base' || t === 'starter') classesByTier.starter.push(cl);
+    else if (t === 'beginner') classesByTier.beginner.push(cl);
     else if (t === 'specialty') classesByTier.specialty.push(cl);
     else if (t === 'advanced') classesByTier.advanced.push(cl);
     else if (t === 'master' || t === 'elephant') classesByTier.master.push(cl);
@@ -20739,8 +20925,9 @@ if (typeof window !== 'undefined') {
   function renderCustomClassOptions(charName, selectedClassName) {
     const b = (FW.characterBuilds && FW.characterBuilds[charName]) || {};
     const sex = (b.sex || '').toLowerCase();
-    const tKeys = ['beginner', 'specialty', 'advanced', 'master', 'divine'];
+    const tKeys = ['starter', 'beginner', 'specialty', 'advanced', 'master', 'divine'];
     const tLabels = {
+      starter: '0. Starter Classes',
       beginner: '1. Beginner Classes',
       specialty: '2. Specialty Classes',
       advanced: '3. Advanced Classes',
@@ -20767,485 +20954,532 @@ if (typeof window !== 'undefined') {
     return html;
   }
 
-  // Calculate Stat & Level Path Recommendation (Considers stats, current class, weapon ranks & current rank+)
-  function calculateStatBasedRecommendedPath(charName, stats, level, currentRoute, currentClass, customRanks) {
+  // --- EXPECTED STATS CALCULATOR ENGINE ---
+
+  // Retrieve Level 1 base stats for a character
+  function getCharacterLv1Bases(charName) {
     const b = (FW.characterBuilds && FW.characterBuilds[charName]) || {};
-    const apt = b.aptitude || {};
-    const g8 = (FW.game8Builds && FW.game8Builds[charName]) || null;
-    const currentStats = { ...stats };
-    const curLevel = Math.max(1, Math.min(50, parseInt(level, 10) || 1));
-    const tierKeys = ['beginner', 'specialty', 'advanced', 'master', 'divine'];
-
-    // Resolve current class and its tier
-    const curClObj = classMap.get(currentClass) || null;
-    let curTier = 'beginner';
-    if (curClObj) {
-      curTier = (curClObj.tier || 'beginner').toLowerCase();
-      if (curTier === 'elephant') curTier = 'master';
-      if (!tierKeys.includes(curTier)) curTier = 'beginner';
-    }
-    const curTierIdx = Math.max(0, tierKeys.indexOf(curTier));
-
-    // Offensive orientation
-    const str = currentStats.Str || 0;
-    const mag = currentStats.Mag || 0;
-    const spd = currentStats.Spd || 0;
-    const dex = currentStats.Dex || 0;
-    const def = currentStats.Def || 0;
-    const res = currentStats.Res || 0;
-    const hp = currentStats.HP || 0;
-
-    const isPhysical = str >= mag + 4;
-    const isMagical = mag >= str + 4;
-    const isHybrid = !isPhysical && !isMagical;
-
-    // Determine Archetype
-    let archTag = '⚔️ Balanced Warrior';
-    let archTitle = 'Balanced Combat Specialist';
-    let archDesc = 'Solid distribution between offense and survivability across physical encounters.';
-
-    if (isPhysical) {
-      if (spd >= def + 4) {
-        archTag = '⚡ High-Speed Striker';
-        archTitle = 'Agile Physical Melee Specialist';
-        archDesc = `High Strength (${str}) and Speed (${spd}) allow consistent double attacks, evasion, and critical strikes.`;
-      } else if (def >= spd + 4) {
-        archTag = '🛡️ Heavy Vanguard / Tank';
-        archTitle = 'Armored Physical Bulwark';
-        archDesc = `Massive Defense (${def}) and HP (${hp}) shrug off physical strikes, making heavy armor and high-defense classes optimal.`;
-      } else if (dex >= spd && dex >= str) {
-        archTag = '🎯 Precision Marksman';
-        archTitle = 'High-Dex Lethal Sniper';
-        archDesc = `Exceptional Dexterity (${dex}) maximizes weapon accuracy, skill activation, and long-range critical hits.`;
-      } else {
-        archTag = '⚔️ Physical Powerhouse';
-        archTitle = 'Frontline Physical Bruiser';
-        archDesc = `High Strength (${str}) powers decisive single-hit physical arts and weapon supremacy.`;
-      }
-    } else if (isMagical) {
-      if (spd >= def + 4) {
-        archTag = '🌪️ Agile Spellblade';
-        archTitle = 'High-Speed Arcane Caster';
-        archDesc = `Magic (${mag}) combined with high Speed (${spd}) yields rapid spell rotations and doubling capability.`;
-      } else if (res >= def + 4) {
-        archTag = '✨ Holy Mendicant / Anti-Mage';
-        archTitle = 'High-Resist Divine Healer';
-        archDesc = `High Magic (${mag}) and Resistance (${res}) excel in countering rival mages and delivering potent healing.`;
-      } else {
-        archTag = '🔮 Arcane Powerhouse';
-        archTitle = 'High-Impact Destruction Mage';
-        archDesc = `Overwhelming Magic (${mag}) favors pure offensive tome damage and long-range siege arts.`;
-      }
-    } else {
-      archTag = '⚔️🔮 Mixed Spellblade';
-      archTitle = 'Adaptive Physical/Magical Hybrid';
-      archDesc = `Balanced Strength (${str}) and Magic (${mag}) enable hybrid classes utilizing both weapons and combat magic.`;
-    }
-
-    // Function to score an individual candidate class
-    function scoreClass(cl, prevChosen = []) {
-      if (!cl) return { score: -999, reasons: [] };
-      // Gender Lock
-      if (cl.genderLock && b.sex && cl.genderLock.toLowerCase() !== b.sex.toLowerCase()) {
-        return { score: -999, reasons: [`Incompatible with ${b.sex} character`] };
-      }
-      // Route Lock
-      const lockInfo = getClassRouteLockInfo(cl, currentRoute);
-      if (lockInfo.isRouteGated && !lockInfo.isUnlockedOnCurrentRoute) {
-        return { score: -999, reasons: [`Route locked (${lockInfo.routeNames})`] };
-      }
-
-      let score = 20;
-      const reasons = [];
-      const ut = cl.usableTypes || [];
-      const cg = cl.growth || {};
-      const mov = (cl.movement || '').toLowerCase();
-
-      const hasMagic = ut.includes('Black Magic') || ut.includes('White Magic') || (cg.Mag || 0) > 0;
-      const hasPhys = ut.some(w => ['Sword', 'Spear', 'Axe', 'Bow', 'Gauntlet'].includes(w)) || (cg.Str || 0) > 0;
-
-      if (isPhysical) {
-        if (hasPhys && !hasMagic) {
-          score += 45 + Math.min(30, (str - mag) * 1.5);
-          reasons.push(`Physical scaling (+Str ${str})`);
-        } else if (hasPhys && hasMagic) {
-          score += 20;
-        } else if (hasMagic && !hasPhys) {
-          score -= 40;
-        }
-      } else if (isMagical) {
-        if (hasMagic && !hasPhys) {
-          score += 50 + Math.min(30, (mag - str) * 1.8);
-          reasons.push(`Magic scaling (+Mag ${mag})`);
-        } else if (hasMagic && hasPhys) {
-          score += 30;
-        } else if (hasPhys && !hasMagic) {
-          score -= 40;
-        }
-      } else {
-        if (hasPhys && hasMagic) {
-          score += 55;
-          reasons.push(`Hybrid synergy (Str ${str} / Mag ${mag})`);
-        } else {
-          score += 25;
-        }
-      }
-
-      // Speed synergy
-      if (spd >= 16 && (cg.Spd > 0 || mov === 'infantry' && ut.includes('Sword') || mov.includes('flying'))) {
-        score += 25 + Math.min(25, (spd - 14) * 1.5);
-        reasons.push(`High Spd (${spd}) doubles`);
-      }
-
-      // Bulk synergy
-      if (def >= 14 && (mov.includes('armored') || (cg.Def || 0) >= 10)) {
-        score += 30 + Math.min(30, (def - 12) * 2.0);
-        reasons.push(`Armored wall bulk (+Def ${def})`);
-      } else if (def < 8 && mov.includes('armored')) {
-        score -= 25;
-      }
-
-      // Movement boons
-      if (mov.includes('flying')) {
-        if (apt['Flying'] === 'Boon') { score += 25; reasons.push('Flying Boon mobility'); }
-        else if (apt['Flying'] === 'Bane') { score -= 30; }
-      }
-      if (mov.includes('cavalry')) {
-        if (apt['Riding'] === 'Boon') { score += 20; reasons.push('Cavalry Boon'); }
-        else if (apt['Riding'] === 'Bane') { score -= 25; }
-      }
-
-      // Primary skill boons/banes
-      (cl.primary || []).forEach(p => {
-        if (apt[p.skill] === 'Boon') { score += 25; reasons.push(`Boon in ${p.skill}`); }
-        else if (apt[p.skill] === 'Bane') { score -= 25; }
+    const growths = getCharacterBaseGrowths(charName);
+    if (b.bases && typeof b.bases.HP === 'number') {
+      const baseLv = b.basesLevel || b.joinLevel || 1;
+      if (baseLv <= 1) return { ...b.bases };
+      const diff = baseLv - 1;
+      const res = {};
+      ["HP", "Str", "Mag", "Dex", "Spd", "Def", "Res", "Lck", "Cha"].forEach(st => {
+        const g = growths[st] || 35;
+        res[st] = Math.max(1, Math.round(b.bases[st] - (diff * (g / 100))));
       });
-
-      // Weapon Rank Certification Prerequisites & Synergies
-      if (customRanks) {
-        const clPrim = cl.primary || [];
-        const clSec = cl.secondary || [];
-        let allPrimMet = true;
-
-        clPrim.forEach(p => {
-          const reqVal = RANK_VALUES[p.rank] || 5;
-          const uRank = customRanks[p.skill] || 'E';
-          const uVal = RANK_VALUES[uRank] || 1;
-          if (uVal >= reqVal) {
-            score += 28;
-            reasons.push(`Certified: ${p.skill} ${p.rank} (Rank ${uRank})`);
-          } else {
-            allPrimMet = false;
-            const diff = reqVal - uVal;
-            if (diff <= 2) {
-              score += 10;
-              reasons.push(`Near req: ${p.skill} ${p.rank} (${uRank})`);
-            } else {
-              score -= Math.min(35, diff * 10);
-            }
-          }
-        });
-
-        if (clPrim.length > 0 && allPrimMet) {
-          score += 25; // Bonus for full prerequisite clearance
-        }
-
-        if (clSec.length > 0) {
-          let secMet = false;
-          clSec.forEach(s => {
-            const reqVal = RANK_VALUES[s.rank] || 5;
-            const uRank = customRanks[s.skill] || 'E';
-            const uVal = RANK_VALUES[uRank] || 1;
-            if (uVal >= reqVal) secMet = true;
-          });
-          if (secMet) {
-            score += 18;
-            reasons.push('Meets secondary certification requirement');
-          }
-        }
-
-        // Proficiency synergy for weapons unit has trained to B+ or higher
-        (cl.usableTypes || []).forEach(w => {
-          const uVal = RANK_VALUES[customRanks[w] || 'E'] || 1;
-          if (uVal >= 7) {
-            score += 12;
-          }
-        });
-      }
-
-      // Weapon continuity from earlier chosen classes (starts with currentClass)
-      if (prevChosen.length > 0) {
-        const prevWeapons = new Set();
-        prevChosen.forEach(pc => {
-          (pc.usableTypes || []).forEach(w => prevWeapons.add(w));
-        });
-        const shared = ut.filter(w => prevWeapons.has(w) && !['Infantry', 'Riding', 'Flying', 'Heavy Armor'].includes(w));
-        if (shared.length > 0) {
-          score += 20 * shared.length;
-          reasons.push(`Weapon path continuity (${shared.join(', ')})`);
-        }
-      }
-
-      // Game8 meta alignment
-      if (g8 && g8.allRecommended && g8.allRecommended.includes(cl.name)) {
-        score += 20;
-      }
-
-      let rating = 'viable';
-      let stars = '⭐';
-      let label = 'Viable Fit';
-      if (score >= 90) { rating = 'optimal'; stars = '👑👑👑'; label = 'Signature Fit'; }
-      else if (score >= 50) { rating = 'optimal'; stars = '⭐⭐⭐'; label = 'Optimal Fit'; }
-      else if (score >= 25) { rating = 'great'; stars = '⭐⭐'; label = 'Great Fit'; }
-      else if (score < 5) { rating = 'offmeta'; stars = '⚠️'; label = 'Off-Meta / Bane'; }
-
-      return { score, rating, stars, label, reasons };
+      return res;
     }
-
-    // Pick path classes: preserve current class for current rank, score higher tiers
-    const recPath = {};
-    const chosenList = [];
-
-    if (curClObj) {
-      chosenList.push(curClObj);
-    }
-
-    tierKeys.forEach((tKey, idx) => {
-      if (idx < curTierIdx) {
-        // Tiers below current rank are completed / bypassed
-        recPath[tKey] = {
-          isPassed: true,
-          classObj: null,
-          score: 0,
-          rating: 'passed',
-          stars: 'Completed',
-          label: 'Completed Rank',
-          reason: 'Rank already completed / surpassed in progression'
-        };
-      } else if (idx === curTierIdx && curClObj) {
-        // Current rank: assigned to current in-game class
-        recPath[tKey] = {
-          classObj: curClObj,
-          score: 100,
-          rating: 'optimal',
-          stars: '🛡️ Current',
-          label: 'Current Class',
-          isCurrentClass: true,
-          reason: `Active deployed class (${curClObj.movement || 'Infantry'} · Usable: ${(curClObj.usableTypes || []).filter(w => WEAPON_SKILLS.includes(w)).join(', ') || 'All'})`
-        };
-      } else {
-        // Higher tiers (or current tier if curClObj wasn't valid)
-        const candidates = (classesByTier[tKey] || []).map(cl => ({
-          classObj: cl,
-          ...scoreClass(cl, chosenList)
-        })).filter(x => x.score > -500);
-
-        candidates.sort((a, b) => b.score - a.score);
-        if (candidates.length > 0) {
-          const best = candidates[0];
-          recPath[tKey] = {
-            classObj: best.classObj,
-            score: best.score,
-            rating: best.rating,
-            stars: best.stars,
-            label: best.label,
-            reason: best.reasons.slice(0, 2).join(' · ') || 'Solid attribute match'
-          };
-          chosenList.push(best.classObj);
-        }
-      }
-    });
-
-    // Active deployment target: matches current level or promotes if level gate is passed
-    let activeTier = curTier;
-    if (curLevel >= 45 && tierKeys.indexOf('master') >= curTierIdx) activeTier = 'master';
-    else if (curLevel >= 35 && tierKeys.indexOf('advanced') >= curTierIdx) activeTier = 'advanced';
-    else if (curLevel >= 20 && tierKeys.indexOf('specialty') >= curTierIdx) activeTier = 'specialty';
-    else if (curLevel >= 5 && tierKeys.indexOf('beginner') >= curTierIdx) activeTier = 'beginner';
-
-    const activeRec = recPath[activeTier] || recPath[curTier] || recPath.master || recPath.advanced || recPath.specialty || recPath.beginner;
-    const activeClObj = activeRec ? activeRec.classObj : curClObj;
-    const activeClMov = activeClObj ? (activeClObj.movement || 'Infantry') : 'Infantry';
-    const activeClMovCap = activeClMov.charAt(0).toUpperCase() + activeClMov.slice(1);
-    const activeClUt = activeClObj ? (activeClObj.usableTypes || []) : [];
-    const activeClWeaps = activeClUt.filter(w => WEAPON_SKILLS.includes(w)).join(', ') || 'All Weapons';
-
-    // Diagnostic insights
-    const insights = [];
-    if (curClObj) {
-      insights.push(`Starting from current class <strong>${curClObj.name}</strong> (${curTier.toUpperCase()} rank), recommendations focus strictly on this tier and higher promotions.`);
-    }
-
-    if (customRanks) {
-      const topRanks = Object.entries(customRanks)
-        .filter(([_, rk]) => (RANK_VALUES[rk] || 0) >= 6) // C+ or higher
-        .map(([sk, rk]) => `${sk} (${rk})`);
-      if (topRanks.length > 0) {
-        insights.push(`Weapon Mastery: High proficiency in <strong>${topRanks.join(', ')}</strong> prioritizes advanced certifications with matching prerequisites.`);
-      }
-    }
-
-    if (isPhysical) {
-      insights.push(`Strength (<strong>${str}</strong>) leads Magic (<strong>${mag}</strong>) by +${str - mag}, directing promotions into decisive physical weapon arts.`);
-    } else if (isMagical) {
-      insights.push(`Magic (<strong>${mag}</strong>) dominates Strength (<strong>${str}</strong>) by +${mag - str}, favoring high-yield arcane and faith casting masteries.`);
-    } else {
-      insights.push(`Strength (<strong>${str}</strong>) and Magic (<strong>${mag}</strong>) balance evenly, empowering hybrid weapon/magic classes.`);
-    }
-
-    if (spd >= 16) {
-      insights.push(`Speed (<strong>${spd}</strong>) secures doubling thresholds, elevating agile and evasive combat roles.`);
-    } else if (def >= 14) {
-      insights.push(`Defense (<strong>${def}</strong>) and HP (<strong>${hp}</strong>) provide heavy tanking bulk, compensating for lower speed with high mitigation.`);
-    }
-
     return {
-      charName,
-      level: curLevel,
-      currentClass: curClObj ? curClObj.name : 'Gladiator',
-      currentClassTier: curTier,
-      currentClassTierIdx: curTierIdx,
-      archetype: { tag: archTag, title: archTitle, description: archDesc },
-      activeClass: {
-        name: activeClObj ? activeClObj.name : (curClObj ? curClObj.name : 'Gladiator'),
-        tier: activeTier.charAt(0).toUpperCase() + activeTier.slice(1),
-        movCap: activeClMovCap,
-        weapsStr: activeClWeaps,
-        fit: activeRec ? { rating: activeRec.rating, stars: activeRec.stars, label: activeRec.label } : { rating: 'optimal', stars: '⭐⭐⭐', label: 'Recommended' }
-      },
-      path: recPath,
-      insights
+      HP: Math.round(18 + (growths.HP || 40) * 0.15),
+      Str: Math.round(4 + (growths.Str || 40) * 0.1),
+      Mag: Math.round(3 + (growths.Mag || 20) * 0.1),
+      Dex: Math.round(4 + (growths.Dex || 40) * 0.1),
+      Spd: Math.round(4 + (growths.Spd || 40) * 0.1),
+      Def: Math.round(3 + (growths.Def || 30) * 0.1),
+      Res: Math.round(2 + (growths.Res || 30) * 0.1),
+      Lck: Math.round(3 + (growths.Lck || 35) * 0.1),
+      Cha: Math.round(3 + (growths.Cha || 35) * 0.1)
     };
   }
 
-  // Render Stat Advisor Results HTML (Shows only current rank & above)
-  function renderStatAdvisorResultsHtml(rec, customLevel, currentClass) {
-    if (!rec) return '';
+  // Normalize tier name to standard keys
+  function normalizeClassTier(tier) {
+    if (!tier) return 'beginner';
+    const t = tier.toLowerCase();
+    if (t === 'base' || t === 'starter') return 'starter';
+    if (t === 'elephant') return 'advanced';
+    return t;
+  }
 
-    const tierDisplayDefs = [
-      { key: 'beginner', number: '1', title: 'Beginner', gate: 'Lv 5+' },
-      { key: 'specialty', number: '2', title: 'Specialty', gate: 'Lv 20+' },
-      { key: 'advanced', number: '3', title: 'Advanced', gate: 'Lv 35+' },
-      { key: 'master', number: '4', title: 'Master', gate: 'Lv 45+' },
-      { key: 'divine', number: '5', title: 'Divine', gate: 'Endgame' }
-    ];
+  // Resolve natural predecessor class in the preceding tier
+  function findNaturalPredecessorClass(targetClassObj, prevTier, charName) {
+    const b = (FW.characterBuilds && FW.characterBuilds[charName]) || {};
+    const apt = b.aptitude || {};
+    const sex = (b.sex || '').toLowerCase();
 
-    const curTierIdx = rec.currentClassTierIdx || 0;
-    const curTierKey = rec.currentClassTier || 'beginner';
-    const curLvl = parseInt(customLevel, 10) || 1;
+    // Check if character's curated Game8 build has a class in this tier
+    const g8 = (FW.game8Builds && FW.game8Builds[charName]) || null;
+    if (g8 && Array.isArray(g8[prevTier]) && g8[prevTier].length > 0) {
+      const g8Class = classMap.get(g8[prevTier][0]);
+      if (g8Class) return g8Class;
+    }
 
-    // Filter to only recommend current rank and above
-    const relevantDefs = tierDisplayDefs.filter((_, idx) => idx >= curTierIdx);
+    const targetSkills = new Set([
+      ...(targetClassObj.primary || []).map(p => p.skill),
+      ...(targetClassObj.secondary || []).map(p => p.skill)
+    ]);
+    const targetTypes = new Set(targetClassObj.usableTypes || []);
+    const targetMov = (targetClassObj.movement || 'infantry').toLowerCase();
 
-    const tierCardsHtml = relevantDefs.map(tDef => {
-      const tierData = rec.path[tDef.key];
-      if (!tierData || !tierData.classObj) {
-        return `
-          <div class="stat-rec-card">
-            <div class="stat-rec-card-tier-label">
-              <span>${tDef.number}. ${tDef.title}</span>
-              <span class="stat-rec-level-gate">${tDef.gate}</span>
-            </div>
-            <div style="font-size:0.75rem; color:var(--text-dim); padding:0.5rem 0;">None Available</div>
-          </div>
-        `;
+    const candidates = (FW.classes || []).filter(c => {
+      const cTier = normalizeClassTier(c.tier);
+      if (cTier !== prevTier) return false;
+      if (c.genderLock && sex && c.genderLock.toLowerCase() !== sex) return false;
+      return true;
+    });
+
+    let bestClass = null;
+    let bestScore = -9999;
+
+    candidates.forEach(cand => {
+      const candSkills = new Set([
+        ...(cand.primary || []).map(p => p.skill),
+        ...(cand.secondary || []).map(p => p.skill)
+      ]);
+      const candTypes = new Set(cand.usableTypes || []);
+      const candMov = (cand.movement || 'infantry').toLowerCase();
+
+      let score = 0;
+      // Overlapping primary/secondary skills
+      candSkills.forEach(s => {
+        if (targetSkills.has(s)) score += 20;
+        if (targetTypes.has(s)) score += 10;
+        if (apt[s] === 'Boon') score += 5;
+        else if (apt[s] === 'Bane') score -= 10;
+      });
+
+      // Usable types overlap
+      candTypes.forEach(t => {
+        if (targetSkills.has(t)) score += 10;
+        if (targetTypes.has(t)) score += 4;
+      });
+
+      // Movement synergy
+      if (targetMov === candMov) {
+        score += 15;
+      } else if (['cavalry', 'flying'].includes(targetMov) && ['cavalry', 'flying'].includes(candMov)) {
+        score += 8;
+      } else if (targetMov === 'armored' && candTypes.has('Armor')) {
+        score += 12;
       }
-      const cl = tierData.classObj;
-      const isCurClass = tDef.key === curTierKey;
-      const mov = cl.movement || 'Infantry';
-      const movCap = mov.charAt(0).toUpperCase() + mov.slice(1);
-      const ut = cl.usableTypes || [];
-      const weaps = ut.filter(w => WEAPON_SKILLS.includes(w)).join(', ') || 'All Weapons';
-      const icon = tDef.key === 'divine' ? '✨' : isCurClass ? '👑' : '🛡️';
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestClass = cand;
+      }
+    });
+
+    return bestClass || candidates[0] || null;
+  }
+
+  // Render options for a specific tier dropdown within progression chain step
+  function renderTierOptionsHtml(charName, tierKey, selectedClassName, currentRoute = 'cai') {
+    const b = (FW.characterBuilds && FW.characterBuilds[charName]) || {};
+    const sex = (b.sex || '').toLowerCase();
+    const currentPath = getNormalizedClassRoute(charName, currentRoute) || {};
+    const plannerClasses = new Set(Array.isArray(currentPath[tierKey]) ? currentPath[tierKey] : []);
+
+    let classes = [];
+    if (tierKey === 'starter') {
+      classes = (classesByTier.starter || []).filter(c => !c.genderLock || c.genderLock.toLowerCase() === sex);
+      if (classes.length === 0) {
+        classes = (FW.classes || []).filter(c => ['base', 'starter'].includes((c.tier || '').toLowerCase()));
+      }
+    } else {
+      classes = (classesByTier[tierKey] || []).filter(c => !c.genderLock || c.genderLock.toLowerCase() === sex);
+    }
+
+    return classes.map(cl => {
+      const isSel = cl.name === selectedClassName ? 'selected' : '';
+      const isPlanner = plannerClasses.has(cl.name);
+      const star = isPlanner ? '★ ' : '';
+      const mov = cl.movement ? cl.movement.charAt(0).toUpperCase() + cl.movement.slice(1) : 'Infantry';
+      const plannerTag = isPlanner ? ' [Route Pick]' : '';
+      return `<option value="${cl.name}" ${isSel}>${star}${cl.name} [${mov}]${plannerTag}</option>`;
+    }).join('');
+  }
+
+  // Derive customizable class progression chain leading into target class
+  // Defaults from multi-class progression route (currentPath), with support for user adjustments/overrides
+  function getCustomizableClassProgressionChain(charName, targetClassName, routeOverrides = {}, currentRoute = 'cai') {
+    const b = (FW.characterBuilds && FW.characterBuilds[charName]) || {};
+    const starterClassName = routeOverrides?.starter || b.baseClass || 'Noble';
+    const starterClObj = classMap.get(starterClassName) || classMap.get('Commoner') || { name: starterClassName, tier: 'Base', movement: 'infantry', growth: {}, statBonus: {} };
+
+    let targetCl = classMap.get(targetClassName);
+    if (!targetCl) {
+      targetCl = classMap.get('Gladiator') || starterClObj;
+    }
+
+    const targetTier = normalizeClassTier(targetCl.tier);
+    const tierOrder = ['starter', 'beginner', 'specialty', 'advanced', 'master', 'divine'];
+    const targetTierIdx = Math.max(0, tierOrder.indexOf(targetTier));
+
+    if (targetTierIdx === 0) {
+      return [{ tier: 'starter', name: targetCl.name, classObj: targetCl }];
+    }
+
+    const currentPath = getNormalizedClassRoute(charName, currentRoute) || {};
+    const chain = [{ tier: targetTier, name: targetCl.name, classObj: targetCl }];
+    let currentStep = targetCl;
+
+    for (let i = targetTierIdx - 1; i >= 1; i--) {
+      const prevTier = tierOrder[i];
+      let chosenClass = null;
+
+      // 1. User manual override inside Expected Stats Calculator
+      if (routeOverrides && routeOverrides[prevTier]) {
+        chosenClass = classMap.get(routeOverrides[prevTier]);
+      }
+
+      // 2. Default to Multi-Class Progression Route from Section 2
+      if (!chosenClass && currentPath && Array.isArray(currentPath[prevTier]) && currentPath[prevTier].length > 0) {
+        chosenClass = classMap.get(currentPath[prevTier][0]);
+      }
+
+      // 3. Fallback to natural predecessor
+      if (!chosenClass) {
+        chosenClass = findNaturalPredecessorClass(currentStep, prevTier, charName);
+      }
+
+      if (!chosenClass) {
+        const fallbacks = (classesByTier[prevTier] || []);
+        chosenClass = fallbacks[0] || currentStep;
+      }
+
+      chain.unshift({ tier: prevTier, name: chosenClass.name, classObj: chosenClass });
+      currentStep = chosenClass;
+    }
+
+    // Add starter tier at beginning
+    chain.unshift({ tier: 'starter', name: starterClObj.name, classObj: starterClObj });
+    return chain;
+  }
+
+  // Backward-compatibility alias
+  function getNaturalClassProgressionChain(charName, targetClassName) {
+    return getCustomizableClassProgressionChain(charName, targetClassName, {}, 'cai');
+  }
+
+  // Compute expected stats for a character at target level in target class with customizable route
+  function calculateExpectedStats(charName, targetLevel, targetClassName, routeOverrides = {}, currentRoute = 'cai') {
+    const level = Math.max(1, Math.min(60, parseInt(targetLevel, 10) || 1));
+    const chain = getCustomizableClassProgressionChain(charName, targetClassName, routeOverrides, currentRoute);
+    const targetClassObj = chain[chain.length - 1].classObj;
+
+    const tierMin = {
+      starter: 1,
+      beginner: 5,
+      specialty: 20,
+      advanced: 35,
+      master: 45,
+      divine: 45
+    };
+
+    // Calculate level spans for each step in progression chain
+    // Ensures sum of all level gains equals exactly (level - 1)
+    const spans = [];
+    const n = chain.length;
+
+    if (n === 1) {
+      spans.push({
+        ...chain[0],
+        startLv: 1,
+        endLv: level,
+        levelCount: Math.max(0, level - 1)
+      });
+    } else {
+      const targetTier = normalizeClassTier(targetClassObj.tier);
+      const targetStdMin = tierMin[targetTier] || 45;
+
+      if (level >= targetStdMin) {
+        let currentStart = 1;
+        for (let i = 0; i < n; i++) {
+          const item = chain[i];
+          let lvlEnd = level;
+          if (i < n - 1) {
+            const nextTier = chain[i + 1].tier;
+            lvlEnd = tierMin[nextTier] || 20;
+          }
+          const gains = Math.max(0, lvlEnd - currentStart);
+          spans.push({
+            ...item,
+            startLv: currentStart,
+            endLv: lvlEnd,
+            levelCount: gains
+          });
+          currentStart = lvlEnd;
+        }
+      } else {
+        // level < standard milestone of target class:
+        // Prior tiers take standard spans up to level, target class takes the remaining levels
+        let currentStart = 1;
+        for (let i = 0; i < n - 1; i++) {
+          const nextTier = chain[i + 1].tier;
+          const stdNext = tierMin[nextTier] || 20;
+          if (stdNext <= level) {
+            const lvlEnd = stdNext;
+            const gains = Math.max(0, lvlEnd - currentStart);
+            spans.push({
+              ...chain[i],
+              startLv: currentStart,
+              endLv: lvlEnd,
+              levelCount: gains
+            });
+            currentStart = lvlEnd;
+          } else {
+            spans.push({
+              ...chain[i],
+              startLv: currentStart,
+              endLv: currentStart,
+              levelCount: 0
+            });
+          }
+        }
+        const gains = Math.max(0, level - currentStart);
+        spans.push({
+          ...chain[n - 1],
+          startLv: currentStart,
+          endLv: level,
+          levelCount: gains
+        });
+      }
+    }
+
+    // Base Level 1 stats and Growth rates
+    const lv1Bases = getCharacterLv1Bases(charName);
+    const charGrowths = getCharacterBaseGrowths(charName, true); // Factors in Mu's personal ability (+20%)
+    const isMuWithAbility = (charName === 'Mu');
+
+    const gains = {};
+    const totals = {};
+    const rounded = {};
+    const statBreakdowns = {};
+
+    ["HP", "Str", "Mag", "Dex", "Spd", "Def", "Res", "Lck", "Cha"].forEach(s => {
+      let statGain = 0;
+      spans.forEach(step => {
+        if (step.levelCount > 0) {
+          const clGrowth = (step.classObj && step.classObj.growth && step.classObj.growth[s]) || 0;
+          const effG = (charGrowths[s] || 0) + clGrowth;
+          statGain += step.levelCount * (effG / 100.0);
+        }
+      });
+
+      const bonus = (targetClassObj && targetClassObj.statBonus && targetClassObj.statBonus[s]) || 0;
+      const base = lv1Bases[s] !== undefined ? lv1Bases[s] : 10;
+      const finalTot = base + statGain + bonus;
+
+      gains[s] = statGain;
+      totals[s] = finalTot;
+      rounded[s] = Math.max(1, Math.round(finalTot));
+      statBreakdowns[s] = {
+        base,
+        gain: statGain,
+        bonus,
+        total: finalTot,
+        rounded: Math.max(1, Math.round(finalTot))
+      };
+    });
+
+    // Derived combat ratings
+    const physAtk = rounded.Str + ((targetClassObj && targetClassObj.statBonus && targetClassObj.statBonus.Str) || 0);
+    const magAtk = rounded.Mag + ((targetClassObj && targetClassObj.statBonus && targetClassObj.statBonus.Mag) || 0);
+    const physBulk = rounded.HP + rounded.Def;
+    const magBulk = rounded.HP + rounded.Res;
+    const attackSpeed = rounded.Spd;
+    const hitRate = Math.round(rounded.Dex * 1.5 + rounded.Lck * 0.5);
+    const critRate = Math.round(rounded.Dex * 0.5);
+
+    return {
+      charName,
+      targetLevel: level,
+      targetClass: targetClassObj,
+      targetClassName: targetClassObj.name,
+      chainSpans: spans,
+      routeOverrides,
+      currentRoute,
+      lv1Bases,
+      charGrowths,
+      gains,
+      totals,
+      rounded,
+      statBreakdowns,
+      isMuWithAbility,
+      combat: {
+        physAtk,
+        magAtk,
+        physBulk,
+        magBulk,
+        attackSpeed,
+        hitRate,
+        critRate
+      }
+    };
+  }
+
+  // Render HTML for Expected Stats Calculator results
+  function renderExpectedStatsHtml(calc) {
+    if (!calc) return '';
+
+    const statIcons = {
+      HP: '❤️',
+      Str: '💪',
+      Mag: '✨',
+      Dex: '🎯',
+      Spd: '⚡',
+      Def: '🛡️',
+      Res: '🔮',
+      Lck: '🍀',
+      Cha: '👑'
+    };
+
+    const statMaxScale = {
+      HP: 90,
+      Str: 60,
+      Mag: 60,
+      Dex: 60,
+      Spd: 60,
+      Def: 60,
+      Res: 60,
+      Lck: 60,
+      Cha: 60
+    };
+
+    // Progression Breadcrumbs Chain HTML with in-place tier dropdown selectors
+    const chainChipsHtml = calc.chainSpans.map((step, idx) => {
+      const isTarget = idx === calc.chainSpans.length - 1;
+      const mov = step.classObj?.movement ? step.classObj.movement.charAt(0).toUpperCase() + step.classObj.movement.slice(1) : 'Infantry';
+      const movIcon = mov === 'Cavalry' ? '🏇' : mov === 'Flying' ? '🦅' : mov === 'Armored' ? '🛡️' : '🚶';
+      const tierBadge = (step.tier || 'Beginner').toUpperCase();
+      const isActiveClass = isTarget ? 'exp-chain-chip-target' : '';
 
       return `
-        <div class="stat-rec-card ${isCurClass ? 'is-current-tier' : ''}">
-          <div class="stat-rec-card-tier-label">
-            <span>${tDef.number}. ${tDef.title}</span>
-            ${isCurClass ? `<span class="stat-rec-current-badge">👑 Current Class</span>` : `<span class="stat-rec-level-gate">${tDef.gate}</span>`}
+        <div class="exp-chain-chip ${isActiveClass}">
+          <div class="exp-chain-chip-header">
+            <span class="exp-chain-tier-tag">${tierBadge}</span>
+            <span class="exp-chain-mov" title="${mov}">${movIcon}</span>
           </div>
-          <div class="stat-rec-card-body">
-            <div class="stat-rec-class-title-row">
-              <span style="font-size:1.05rem;">${icon}</span>
-              <strong style="color:#fff; font-size:0.88rem;">${cl.name}</strong>
-            </div>
-            <div class="stat-rec-class-tags" style="margin-top:0.2rem;">
-              <span class="chip-mov-tag">${movCap}</span>
-              <span class="fit-badge fit-${tierData.rating}" style="font-size:0.65rem;">${tierData.stars}</span>
-            </div>
-            <div class="stat-rec-weaps" title="Usable Weapons: ${weaps}">
-              ⚔️ ${weaps}
-            </div>
-            <div class="stat-rec-card-reason">
-              💡 ${tierData.reason}
-            </div>
+          <div class="exp-chain-select-wrap">
+            <select class="exp-chain-step-select" data-step-tier="${step.tier}" title="Select class for ${step.tier} tier in expected stats">
+              ${renderTierOptionsHtml(calc.charName, step.tier, step.name, calc.currentRoute)}
+            </select>
+          </div>
+          <div class="exp-chain-levels">
+            <span>Lv. ${step.startLv}–${step.endLv}</span>
+            <span class="exp-chain-gains-badge">${step.levelCount > 0 ? `+${step.levelCount} lvls` : 'Current'}</span>
+          </div>
+        </div>
+      `;
+    }).join('<div class="exp-chain-arrow">➔</div>');
+
+    // 9 Stat Cards HTML
+    const statCardsHtml = ["HP", "Str", "Mag", "Dex", "Spd", "Def", "Res", "Lck", "Cha"].map(st => {
+      const b = calc.statBreakdowns[st];
+      const maxVal = statMaxScale[st] || 60;
+      const pct = Math.min(100, Math.round((b.total / maxVal) * 100));
+      const bonusStr = b.bonus > 0 ? `+${b.bonus}` : b.bonus < 0 ? `${b.bonus}` : '0';
+      const gainStr = b.gain.toFixed(1);
+
+      return `
+        <div class="exp-stat-card">
+          <div class="exp-stat-card-header">
+            <span class="exp-stat-label">${statIcons[st]} ${st}</span>
+            <span class="exp-stat-exact" title="Exact projected mathematical average">${b.total.toFixed(1)}</span>
+          </div>
+          <div class="exp-stat-main-val">
+            <span class="exp-stat-big-num">${b.rounded}</span>
+            <span class="exp-stat-growth-tag" title="Effective Growth: ${calc.charGrowths[st]}%">${calc.charGrowths[st]}% grw</span>
+          </div>
+          <div class="exp-stat-meter-track" title="${pct}% of benchmark cap">
+            <div class="exp-stat-meter-fill" style="width: ${pct}%;"></div>
+          </div>
+          <div class="exp-stat-breakdown-row">
+            <span title="Lv 1 Base">Base: <strong>${b.base}</strong></span>
+            <span title="Growth Gains over ${calc.targetLevel - 1} level-ups">Gain: <strong>+${gainStr}</strong></span>
+            <span title="Current Class Modifier">Mod: <strong style="color:${b.bonus > 0 ? '#34d399' : b.bonus < 0 ? '#f87171' : 'var(--text-muted)'};">${bonusStr}</strong></span>
           </div>
         </div>
       `;
     }).join('');
 
-    const curTierLabel = curTierKey.charAt(0).toUpperCase() + curTierKey.slice(1);
-
     return `
-      <!-- Archetype & Active Deployment Summary -->
-      <div class="stat-rec-summary-card">
-        <div class="stat-rec-summary-top">
-          <div class="stat-rec-archetype-info">
-            <span class="stat-rec-archetype-tag">${rec.archetype.tag}</span>
-            <h4 class="stat-rec-archetype-title">${rec.archetype.title}</h4>
-            <div class="stat-rec-archetype-desc">${rec.archetype.description}</div>
+      <!-- Progression Chain Track with in-place tier dropdowns -->
+      <div class="exp-stats-track-card">
+        <div class="exp-track-header">
+          <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+            <span style="font-weight:700; color:var(--gold); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; display:flex; align-items:center; gap:0.4rem;">
+              <span>🛤️</span> Progression Route (Lv 1 ➔ Lv ${calc.targetLevel}):
+            </span>
+            <span style="font-size:0.72rem; color:var(--text-dim);">
+              (Select any tier's dropdown to customize previous/current classes)
+            </span>
           </div>
-          <div class="stat-rec-deployed-badge">
-            <span style="font-size:0.7rem; text-transform:uppercase; color:var(--gold); font-weight:700; letter-spacing:0.04em;">👑 Recommended Deployed Target (Lv ${curLvl}):</span>
-            <div class="stat-rec-deployed-name">
-              <span>👑</span> <strong>${rec.activeClass.name}</strong> <span class="badge badge-route-neutral" style="font-size:0.7rem;">${rec.activeClass.tier}</span>
-            </div>
-            <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;">
-              ${rec.activeClass.movCap} · Usable Weapons: ${rec.activeClass.weapsStr}
-            </div>
+          <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+            <button type="button" id="btnExpResetToPlanner" class="btn btn-xs" style="font-size:0.7rem; padding:0.2rem 0.55rem; background:rgba(216,178,94,0.12); border:1px solid rgba(216,178,94,0.3); color:var(--gold);" title="Reset class chain back to your Multi-Class Progression Route from Section 2">
+              ↺ Reset to Multi-Class Route
+            </button>
           </div>
         </div>
-      </div>
-
-      <!-- Recommended Certification Progression Cards (Current Rank & Above Only) -->
-      <div class="stat-rec-tiers-container">
-        <div style="font-size:0.75rem; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem;">
-          <span>🗺️ Recommended Progression Path (${curTierLabel} Rank &amp; Above):</span>
-          <span style="font-size:0.72rem; color:var(--text-dim); font-weight:normal;">Starting from current class <strong>${rec.currentClass}</strong> · Ranks below ${curTierLabel} completed</span>
-        </div>
-        <div class="stat-rec-cards-grid">
-          ${tierCardsHtml}
+        <div class="exp-chain-scroll-track">
+          ${chainChipsHtml}
         </div>
       </div>
 
-      <!-- Diagnostic Insights -->
-      <div class="stat-rec-insights-box">
-        <div style="font-size:0.75rem; font-weight:700; color:#60a5fa; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.35rem;">
-          <span>🔍</span> Why This Path Fits ${rec.charName}'s Current Growth &amp; Weapons:
+      <!-- 9 Projected Stat Cards Grid -->
+      <div class="exp-stats-grid-wrap">
+        <div class="exp-grid-header">
+          <span style="font-weight:700; color:var(--gold); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; display:flex; align-items:center; gap:0.4rem;">
+            <span>📊</span> Projected Average Attributes (Lv. ${calc.targetLevel} ${calc.targetClassName}):
+          </span>
+          <span style="font-size:0.72rem; color:var(--text-dim);">
+            Formula: Base + Gains (Character + Class Growths) + Class Modifiers
+          </span>
         </div>
-        <div class="stat-rec-insights-list">
-          ${rec.insights.map(i => `
-            <div class="stat-rec-insight-item">
-              <span class="insight-bullet">▸</span>
-              <span>${i}</span>
-            </div>
-          `).join('')}
+        <div class="exp-stats-cards-grid">
+          ${statCardsHtml}
         </div>
       </div>
 
-      <!-- Optional Apply Action -->
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem; margin-top:1rem; padding-top:0.75rem; border-top:1px dashed rgba(255,255,255,0.08);">
-        <span style="font-size:0.73rem; color:var(--text-muted);">
-          🔒 <strong>Top path is preserved.</strong> You can optionally apply this recommended path if desired:
-        </span>
-        <button id="btnApplyStatRecToPath" class="btn btn-gold" type="button" style="font-size:0.76rem; padding:0.3rem 0.8rem;" title="Apply this recommended path to the Multi-Class Progression Route above">
-          <span>📋</span> Apply to Multi-Class Progression Route (${curTierLabel} &amp; Above)
-        </button>
+      <!-- Combat Overview & Synergy Strip -->
+      <div class="exp-combat-overview-card">
+        <div class="exp-combat-header">
+          <span style="font-weight:700; color:#fff; font-size:0.78rem; display:flex; align-items:center; gap:0.4rem;">
+            <span>⚔️</span> Combat Baseline Ratings:
+          </span>
+          ${calc.isMuWithAbility ? `
+            <span class="badge" style="background:rgba(216,178,94,0.18); color:var(--gold); border:1px solid rgba(216,178,94,0.4); font-size:0.7rem;">
+              ✨ Mu's Personal Ability (+20% all growths) factored in!
+            </span>
+          ` : ''}
+        </div>
+        <div class="exp-combat-badges-grid">
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">⚔️ Phys Atk</span>
+            <span class="exp-combat-val">${calc.combat.physAtk}</span>
+          </div>
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">✨ Mag Atk</span>
+            <span class="exp-combat-val">${calc.combat.magAtk}</span>
+          </div>
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">🛡️ Phys Bulk</span>
+            <span class="exp-combat-val" title="HP (${calc.rounded.HP}) + Def (${calc.rounded.Def})">${calc.combat.physBulk}</span>
+          </div>
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">🔮 Mag Bulk</span>
+            <span class="exp-combat-val" title="HP (${calc.rounded.HP}) + Res (${calc.rounded.Res})">${calc.combat.magBulk}</span>
+          </div>
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">⚡ Attack Speed</span>
+            <span class="exp-combat-val">${calc.combat.attackSpeed}</span>
+          </div>
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">🎯 Hit Baseline</span>
+            <span class="exp-combat-val" title="Dex × 1.5 + Lck × 0.5">${calc.combat.hitRate}</span>
+          </div>
+          <div class="exp-combat-badge">
+            <span class="exp-combat-label">💥 Crit Baseline</span>
+            <span class="exp-combat-val" title="Dex × 0.5">${calc.combat.critRate}%</span>
+          </div>
+        </div>
       </div>
     `;
   }
 
-  // Pre-generate Recommended Class Paths for all units calibrated against Game8 Best Classes
+    // Pre-generate Recommended Class Paths for all units calibrated against Game8 Best Classes
   const recommendedPaths = {};
   FW.characters.forEach(c => {
     const cName = c.name;
@@ -23506,191 +23740,154 @@ if (typeof window !== 'undefined') {
       suggestionsBody
     );
 
-    // Section 6: Stat & Level Path Recommender (Custom Stat Advisor - Placed at the very bottom)
-    if (!state.customBuildStats) state.customBuildStats = {};
-    if (!state.customBuildStats[char.name]) {
-      const jLv = build.joinLevel || 1;
-      const bases = getCharacterBaseStats(char.name);
-      const jClass = (currentPath.activeClass || build.joinClass || (currentPath.beginner && currentPath.beginner[0]) || 'Gladiator');
-
-      const defaultRanks = {};
-      const apt = build.aptitude || {};
-      WEAPON_RANK_SKILLS.forEach(w => {
-        let baseR = 'E';
-        if (apt[w.key] === 'Boon') baseR = (jLv >= 20 ? 'C' : jLv >= 10 ? 'D+' : 'D');
-        else if (jLv >= 20) baseR = 'D';
-        defaultRanks[w.key] = baseR;
-      });
-
-      state.customBuildStats[char.name] = {
-        level: jLv,
-        currentClass: jClass,
-        ranks: defaultRanks,
-        stats: { ...bases }
+    // Section 6: Expected Stats Calculator (Placed at the very bottom)
+    if (!state.expectedStatsInputs) state.expectedStatsInputs = {};
+    if (!state.expectedStatsInputs[char.name]) state.expectedStatsInputs[char.name] = {};
+    if (typeof state.expectedStatsInputs[char.name].level === 'number') {
+      const old = state.expectedStatsInputs[char.name];
+      state.expectedStatsInputs[char.name] = {
+        [currentRoute]: {
+          level: old.level,
+          currentClass: old.currentClass,
+          routeOverrides: old.routeOverrides || {}
+        }
       };
     }
-    const customData = state.customBuildStats[char.name];
-    if (!customData.currentClass) {
-      customData.currentClass = currentPath.activeClass || build.joinClass || (currentPath.beginner && currentPath.beginner[0]) || 'Gladiator';
-    }
-    if (!customData.ranks) {
-      const defaultRanks = {};
-      const apt = build.aptitude || {};
-      const jLv = customData.level || 1;
-      WEAPON_RANK_SKILLS.forEach(w => {
-        let baseR = 'E';
-        if (apt[w.key] === 'Boon') baseR = (jLv >= 20 ? 'C' : jLv >= 10 ? 'D+' : 'D');
-        else if (jLv >= 20) baseR = 'D';
-        defaultRanks[w.key] = baseR;
+
+    if (!state.expectedStatsInputs[char.name][currentRoute]) {
+      // Default path based on user input in the Multi-Class Progression Route (Section 2)
+      const defaultCurrentClass = currentPath.activeClass ||
+        (currentPath.divine && currentPath.divine[0]) ||
+        (currentPath.master && currentPath.master[0]) ||
+        (currentPath.advanced && currentPath.advanced[0]) ||
+        (currentPath.specialty && currentPath.specialty[0]) ||
+        (currentPath.beginner && currentPath.beginner[0]) ||
+        build.joinClass ||
+        'Gladiator';
+
+      const curClObj = classMap.get(defaultCurrentClass);
+      const curTier = normalizeClassTier(curClObj ? curClObj.tier : 'specialty');
+      const tierMinLevels = { starter: 1, beginner: 5, specialty: 20, advanced: 35, master: 45, divine: 45 };
+      const defaultLevel = Math.max(tierMinLevels[curTier] || 20, build.joinLevel || 1);
+
+      // Default route overrides directly from Section 2
+      const defaultOverrides = {};
+      ['starter', 'beginner', 'specialty', 'advanced', 'master', 'divine'].forEach(t => {
+        if (t === 'starter') defaultOverrides[t] = build.baseClass || 'Noble';
+        else if (Array.isArray(currentPath[t]) && currentPath[t].length > 0) {
+          defaultOverrides[t] = currentPath[t][0];
+        }
       });
-      customData.ranks = defaultRanks;
+
+      state.expectedStatsInputs[char.name][currentRoute] = {
+        level: defaultLevel,
+        currentClass: defaultCurrentClass,
+        routeOverrides: defaultOverrides
+      };
     }
 
-    const customLevel = customData.level;
-    const customCurrentClass = customData.currentClass;
-    const customStats = customData.stats;
-    const customRanks = customData.ranks;
-    const baseStats = getCharacterBaseStats(char.name);
+    const expData = state.expectedStatsInputs[char.name][currentRoute];
+    if (!expData.currentClass) {
+      expData.currentClass = currentPath.activeClass || (currentPath.specialty && currentPath.specialty[0]) || build.joinClass || 'Gladiator';
+    }
+    if (!expData.level) {
+      expData.level = build.joinLevel || 20;
+    }
+    if (!expData.routeOverrides) {
+      expData.routeOverrides = {};
+    }
 
-    const curClObj = classMap.get(customCurrentClass);
-    const customClassTier = curClObj ? (curClObj.tier || 'Beginner') : 'Beginner';
+    const expLevel = Math.max(1, Math.min(60, expData.level));
+    const expCurrentClass = expData.currentClass;
+    const curClObj = classMap.get(expCurrentClass) || { name: expCurrentClass, tier: 'Specialty' };
+    const expClassTier = curClObj.tier || 'Specialty';
 
-    const initialStatRec = calculateStatBasedRecommendedPath(
-      char.name,
-      customStats,
-      customLevel,
-      currentRoute,
-      customCurrentClass,
-      customRanks
-    );
+    const initialExpectedStats = calculateExpectedStats(char.name, expLevel, expCurrentClass, expData.routeOverrides, currentRoute);
 
-    const weaponRanksInputsHtml = WEAPON_RANK_SKILLS.map(w => {
-      const apt = (build.aptitude && build.aptitude[w.key]) || 'Neutral';
-      const aptClass = apt === 'Boon' ? 'boon' : apt === 'Bane' ? 'bane' : 'neutral';
-      const aptIcon = apt === 'Boon' ? '⭐ Boon' : apt === 'Bane' ? '❌ Bane' : '➖';
-      const curRank = (customRanks && customRanks[w.key]) || (apt === 'Boon' ? 'D' : 'E');
-
-      const rankOptions = ALL_RANKS.map(rk => {
-        return `<option value="${rk}" ${rk === curRank ? 'selected' : ''}>${rk}</option>`;
-      }).join('');
-
-      return `
-        <div class="stat-advisor-rank-cell">
-          <div class="stat-advisor-cell-header">
-            <span class="stat-advisor-rank-name" title="${w.key}">${w.icon} ${w.name}</span>
-            <span class="aptitude-micro-badge ${aptClass}" title="${w.key} Aptitude: ${apt}">${aptIcon}</span>
-          </div>
-          <select class="stat-advisor-rank-select" data-custom-rank="${w.key}" title="${w.key} current rank">
-            ${rankOptions}
-          </select>
-        </div>
-      `;
-    }).join('');
-
-    const statAdvisorBody = `
-      <div class="stat-advisor-banner">
+    const expectedStatsBody = `
+      <div class="exp-stats-banner">
         <div style="font-size:0.78rem; color:#cbd5e1; line-height:1.4;">
-          <span>💡</span> <strong>Live Stat &amp; Level Class Advisor:</strong> Input ${char.name}'s current in-game <strong>Level</strong>, <strong>Class</strong>, <strong>Stats</strong>, and <strong>Weapon Ranks</strong> to generate an optimal path for their current rank and forward.
+          <span>📈</span> <strong>Expected Stats Calculator:</strong> Project ${char.name}'s average combat attributes and stat progression for any in-game <strong>Level</strong> and <strong>Current Class</strong>.
           <span style="display:block; font-size:0.72rem; color:var(--text-muted); margin-top:2px;">
-            🔒 <strong>Independent Simulation:</strong> Generating this path does not overwrite your top selected Multi-Class Progression Route.
+            🔒 <strong>Path Defaulting:</strong> Defaults from your Multi-Class Progression Route (Section 2). You can adjust any previous or current class below without modifying your top planner route.
           </span>
         </div>
-        <div class="stat-advisor-top-badges">
+        <div class="exp-stats-top-badges">
           <span class="badge" style="background:#1e293b; color:var(--gold); border:1px solid rgba(216,178,94,0.3); font-size:0.72rem; font-weight:700;">
             Route: ${FW.routes[currentRoute].name}
           </span>
         </div>
       </div>
 
-      <div class="stat-advisor-controls-row">
-        <div style="display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap;">
-          <!-- Current Level -->
-          <div style="display:flex; align-items:center; gap:0.4rem;">
-            <label for="inputCustomLevel" style="font-size:0.8rem; font-weight:700; color:#fff; display:flex; align-items:center; gap:0.35rem; margin:0; cursor:pointer;">
-              <span>🎯</span> Current Level:
+      <div class="exp-stats-controls-row">
+        <!-- Target Level Controls -->
+        <div class="exp-stats-control-group">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.35rem;">
+            <label for="expStatsLevelInput" style="font-size:0.8rem; font-weight:700; color:#fff; display:flex; align-items:center; gap:0.35rem; margin:0; cursor:pointer;">
+              <span>🎯</span> Target / Current Level:
             </label>
-            <input type="number" id="inputCustomLevel" min="1" max="50" value="${customLevel}" class="select-input" style="width:68px; text-align:center; font-weight:700; font-size:0.9rem; color:var(--gold); padding:0.25rem 0.35rem; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-sm);" title="Enter character's current in-game level (1–50)">
-            <span style="font-size:0.72rem; color:var(--text-dim);">(Joins Lv ${build.joinLevel || 1})</span>
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <button type="button" class="btn btn-sm exp-btn-step" data-step="-5" title="Decrease level by 5">−5</button>
+              <button type="button" class="btn btn-sm exp-btn-step" data-step="-1" title="Decrease level by 1">−1</button>
+              <input type="number" id="expStatsLevelInput" min="1" max="60" value="${expLevel}" class="select-input exp-stats-num-input" title="Enter character level (1–60)">
+              <button type="button" class="btn btn-sm exp-btn-step" data-step="1" title="Increase level by 1">+1</button>
+              <button type="button" class="btn btn-sm exp-btn-step" data-step="5" title="Increase level by 5">+5</button>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.6rem;">
+            <input type="range" id="expStatsLevelSlider" min="1" max="60" value="${expLevel}" class="exp-stats-slider" title="Drag to adjust target level">
+            <span id="expStatsLevelDisplay" style="font-size:0.85rem; font-weight:700; color:var(--gold); min-width:44px; text-align:right;">Lv ${expLevel}</span>
           </div>
 
-          <!-- Current Class -->
-          <div style="display:flex; align-items:center; gap:0.4rem;">
-            <label for="inputCustomClass" style="font-size:0.8rem; font-weight:700; color:#fff; display:flex; align-items:center; gap:0.35rem; margin:0; cursor:pointer;">
+          <!-- Quick Level Presets -->
+          <div class="exp-presets-row">
+            <span style="font-size:0.72rem; color:var(--text-dim);">Presets:</span>
+            <button type="button" class="exp-preset-chip" data-preset-lv="${build.joinLevel || 1}" title="Recruitment Join Level">Join (Lv ${build.joinLevel || 1})</button>
+            <button type="button" class="exp-preset-chip" data-preset-lv="20" title="Specialty Certification Benchmark">Lv 20 (Specialty)</button>
+            <button type="button" class="exp-preset-chip" data-preset-lv="35" title="Advanced Certification Benchmark">Lv 35 (Advanced)</button>
+            <button type="button" class="exp-preset-chip" data-preset-lv="45" title="Master Certification Benchmark">Lv 45 (Master)</button>
+            <button type="button" class="exp-preset-chip" data-preset-lv="50" title="Endgame Milestone">Lv 50 (Cap)</button>
+          </div>
+        </div>
+
+        <!-- Target / Current Class Control -->
+        <div class="exp-stats-control-group">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.35rem;">
+            <label for="expStatsClassSelect" style="font-size:0.8rem; font-weight:700; color:#fff; display:flex; align-items:center; gap:0.35rem; margin:0; cursor:pointer;">
               <span>🛡️</span> Current Class:
             </label>
-            <select id="inputCustomClass" class="select-input" style="font-weight:700; font-size:0.84rem; color:var(--gold); padding:0.25rem 0.5rem; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-sm); min-width:160px; max-width:240px;" title="Select character's current class in combat">
-              ${renderCustomClassOptions(char.name, customCurrentClass)}
-            </select>
-            <span class="badge" id="customClassTierBadge" style="font-size:0.7rem; background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.4); text-transform:uppercase;">
-              ${customClassTier.toUpperCase()}
+            <span class="badge" id="expStatsTierBadge" style="font-size:0.7rem; background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.4); text-transform:uppercase;">
+              ${expClassTier.toUpperCase()}
             </span>
           </div>
-        </div>
-
-        <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
-          <button id="btnAutoExpectedStats" class="btn btn-sm" type="button" style="font-size:0.74rem; padding:0.28rem 0.65rem; background:rgba(56, 189, 248, 0.12); border:1px solid #38bdf8; color:#38bdf8;" title="Calculate expected average stats and realistic weapon ranks for Lv ${customLevel} based on growths &amp; aptitudes">
-            <span>📈</span> Auto-Fill Expected Stats (Lv ${customLevel})
-          </button>
-          <button id="btnResetBaseStats" class="btn btn-sm" type="button" style="font-size:0.74rem; padding:0.28rem 0.65rem; background:rgba(255, 255, 255, 0.05); border:1px solid var(--border-color); color:var(--text-muted);" title="Reset level, class, stats, and weapon ranks back to recruitment join bases">
-            <span>↺</span> Reset to Bases
-          </button>
-        </div>
-      </div>
-
-      <!-- Section: Current In-Game Stats -->
-      <div class="stat-advisor-grid-wrap" style="margin-bottom:1.15rem;">
-        <div style="font-size:0.75rem; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center;">
-          <span>📊 Current In-Game Stats:</span>
-          <span style="font-size:0.72rem; color:var(--text-dim); font-weight:normal;">Live re-calculation as numbers change</span>
-        </div>
-        <div class="stat-advisor-inputs-grid">
-          ${allStats.map(stat => {
-            const val = customStats[stat] !== undefined ? customStats[stat] : (baseStats[stat] || 10);
-            const baseVal = baseStats[stat] !== undefined ? baseStats[stat] : 10;
-            const diff = val - baseVal;
-            const diffStr = diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '0';
-            const diffColor = diff > 0 ? '#34d399' : diff < 0 ? '#f87171' : 'var(--text-dim)';
-            return `
-              <div class="stat-advisor-input-cell">
-                <div class="stat-advisor-cell-header">
-                  <span class="stat-advisor-stat-name">${stat}</span>
-                  <span class="stat-advisor-diff" style="color:${diffColor};" title="Difference from join base (${baseVal})">${diffStr}</span>
-                </div>
-                <input type="number" min="0" max="99" class="stat-advisor-number-input" data-custom-stat="${stat}" value="${val}">
-                <div class="stat-advisor-base-hint">Base: ${baseVal}</div>
-              </div>
-            `;
-          }).join('')}
+          <select id="expStatsClassSelect" class="select-input exp-stats-class-dropdown" title="Select character's current class">
+            ${renderCustomClassOptions(char.name, expCurrentClass)}
+          </select>
+          <div style="font-size:0.72rem; color:var(--text-dim); margin-top:0.4rem; display:flex; justify-content:space-between; align-items:center;">
+            <span>Predecessors default from Section 2; customizable per tier</span>
+            <button type="button" id="btnExpSyncTopActiveClass" class="btn btn-xs" style="font-size:0.7rem; padding:0.15rem 0.5rem; background:rgba(255,255,255,0.06); border:1px solid var(--border-color); color:var(--text-muted);" title="Match current class to top selected active class">
+              ↺ Sync Active Class
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Section: Current Weapon & Skill Ranks -->
-      <div class="stat-advisor-ranks-wrap" style="margin-bottom:1.15rem;">
-        <div style="font-size:0.75rem; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem;">
-          <span>⚔️ Current Weapon &amp; Skill Ranks:</span>
-          <span style="font-size:0.72rem; color:var(--text-dim); font-weight:normal;">Select in-game ranks to evaluate certification readiness</span>
-        </div>
-        <div class="stat-advisor-ranks-grid">
-          ${weaponRanksInputsHtml}
-        </div>
-      </div>
-
-      <!-- Live Recommender Output Container -->
-      <div id="statAdvisorResultsContainer">
-        ${renderStatAdvisorResultsHtml(initialStatRec, customLevel, customCurrentClass)}
+      <!-- Live Calculation Results Output Container -->
+      <div id="expectedStatsResultsContainer">
+        ${renderExpectedStatsHtml(initialExpectedStats)}
       </div>
     `;
 
-    const statAdvisorSectionHtml = renderCollapsibleSection(
-      'statAdvisor',
-      '🧭',
-      'Stat & Level Path Recommender',
-      `Lv. ${customLevel} · ${customCurrentClass} · ${initialStatRec.archetype.tag}`,
-      'Custom Stat-Based Class Advisor (Does not overwrite top path)',
-      statAdvisorBody
+    const expectedStatsSectionHtml = renderCollapsibleSection(
+      'expectedStats',
+      '📈',
+      'Expected Stats Calculator',
+      `Lv. ${expLevel} · ${expCurrentClass}`,
+      'Projected average attributes defaulted from multi-class route',
+      expectedStatsBody
     );
 
-    const allCollapsed = ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'statAdvisor'].every(k => Boolean(state.collapsedSections[k]));
+    const allCollapsed = ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'expectedStats'].every(k => Boolean(state.collapsedSections[k]));
     const toggleAllBtnLabel = allCollapsed ? '👁️ Expand All' : '🙈 Collapse All';
 
     detailsContainer.innerHTML = `
@@ -23767,7 +23964,7 @@ if (typeof window !== 'undefined') {
         ${abilitiesSectionHtml}
         ${magicSectionHtml}
         ${suggestionsSectionHtml}
-        ${statAdvisorSectionHtml}
+        ${expectedStatsSectionHtml}
       </div>
     `;
 
@@ -23786,7 +23983,7 @@ if (typeof window !== 'undefined') {
     const updateToggleAllBtn = () => {
       const btnAll = detailsContainer.querySelector('#btnToggleAllSections');
       if (!btnAll) return;
-      const allCol = ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'statAdvisor'].every(k => Boolean(state.collapsedSections[k]));
+      const allCol = ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'expectedStats'].every(k => Boolean(state.collapsedSections[k]));
       btnAll.textContent = allCol ? '👁️ Expand All' : '🙈 Collapse All';
     };
 
@@ -23805,9 +24002,9 @@ if (typeof window !== 'undefined') {
 
     // Master Toggle All Sections
     detailsContainer.querySelector('#btnToggleAllSections')?.addEventListener('click', () => {
-      const allCol = ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'statAdvisor'].every(k => Boolean(state.collapsedSections[k]));
+      const allCol = ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'expectedStats'].every(k => Boolean(state.collapsedSections[k]));
       const targetState = !allCol;
-      ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'statAdvisor'].forEach(k => {
+      ['growths', 'progression', 'abilities', 'magic', 'suggestions', 'expectedStats'].forEach(k => {
         state.collapsedSections[k] = targetState;
         updateSectionUI(k);
       });
@@ -23935,203 +24132,141 @@ if (typeof window !== 'undefined') {
       }
     });
 
-    // --- Stat & Level Path Recommender (Custom Stat Advisor) Event Listeners ---
-    const updateStatAdvisorResults = () => {
-      const resultsContainer = detailsContainer.querySelector('#statAdvisorResultsContainer');
-      const rec = calculateStatBasedRecommendedPath(
-        char.name,
-        customData.stats,
-        customData.level,
-        currentRoute,
-        customData.currentClass,
-        customData.ranks
-      );
+    // --- Expected Stats Calculator Event Listeners ---
+    const updateExpectedStatsUI = () => {
+      const resultsContainer = detailsContainer.querySelector('#expectedStatsResultsContainer');
+      const calc = calculateExpectedStats(char.name, expData.level, expData.currentClass, expData.routeOverrides, currentRoute);
       if (resultsContainer) {
-        resultsContainer.innerHTML = renderStatAdvisorResultsHtml(rec, customData.level, customData.currentClass);
-        resultsContainer.querySelector('#btnApplyStatRecToPath')?.addEventListener('click', applyStatRecToPath);
+        resultsContainer.innerHTML = renderExpectedStatsHtml(calc);
+        bindChainListeners(resultsContainer);
       }
-      const sectionCard = detailsContainer.querySelector('.build-section-card[data-section-key="statAdvisor"]');
+      const sectionCard = detailsContainer.querySelector('.build-section-card[data-section-key="expectedStats"]');
       const badge = sectionCard?.querySelector('.build-section-badge');
-      if (badge) badge.textContent = `Lv. ${customData.level} · ${customData.currentClass} · ${rec.archetype.tag}`;
-      const btnAuto = detailsContainer.querySelector('#btnAutoExpectedStats');
-      if (btnAuto) btnAuto.innerHTML = `<span>📈</span> Auto-Fill Expected Stats (Lv ${customData.level})`;
-      const tierBadge = detailsContainer.querySelector('#customClassTierBadge');
+      if (badge) badge.textContent = `Lv. ${expData.level} · ${expData.currentClass}`;
+      const tierBadge = detailsContainer.querySelector('#expStatsTierBadge');
       if (tierBadge) {
-        const clObj = classMap.get(customData.currentClass);
-        const tName = clObj ? clObj.tier : 'Beginner';
+        const clObj = classMap.get(expData.currentClass);
+        const tName = clObj ? clObj.tier : 'Specialty';
         tierBadge.textContent = tName.toUpperCase();
       }
+      const slider = detailsContainer.querySelector('#expStatsLevelSlider');
+      if (slider) slider.value = expData.level;
+      const numInp = detailsContainer.querySelector('#expStatsLevelInput');
+      if (numInp) numInp.value = expData.level;
+      const disp = detailsContainer.querySelector('#expStatsLevelDisplay');
+      if (disp) disp.textContent = `Lv ${expData.level}`;
+      const selCl = detailsContainer.querySelector('#expStatsClassSelect');
+      if (selCl) selCl.value = expData.currentClass;
     };
 
-    const applyStatRecToPath = () => {
-      const rec = calculateStatBasedRecommendedPath(
-        char.name,
-        customData.stats,
-        customData.level,
-        currentRoute,
-        customData.currentClass,
-        customData.ranks
-      );
-      const curTierIdx = rec.currentClassTierIdx || 0;
-      const tierKeys = ['beginner', 'specialty', 'advanced', 'master', 'divine'];
-      tierKeys.forEach((tKey, idx) => {
-        if (idx >= curTierIdx && rec.path[tKey] && rec.path[tKey].classObj) {
-          currentPath[tKey] = [rec.path[tKey].classObj.name];
-        }
+    const bindChainListeners = (container) => {
+      // Step dropdowns within progression chain
+      container.querySelectorAll('.exp-chain-step-select').forEach(sel => {
+        sel.addEventListener('change', (e) => {
+          const tier = sel.dataset.stepTier;
+          const chosen = sel.value;
+          if (tier && chosen) {
+            expData.routeOverrides[tier] = chosen;
+            // If user adjusted the target class (the final tier)
+            const curTier = normalizeClassTier(classMap.get(expData.currentClass)?.tier);
+            if (tier === curTier) {
+              expData.currentClass = chosen;
+            }
+            updateExpectedStatsUI();
+            showToast(`Adjusted ${tier.toUpperCase()} class to ${chosen}!`, 'info');
+          }
+        });
       });
-      if (rec.activeClass) currentPath.activeClass = rec.activeClass.name;
-      renderApp();
-      showToast(`Applied recommended path (${rec.currentClassTier.toUpperCase()} & above) to ${char.name}'s progression on ${FW.routes[currentRoute].name}!`, 'gold');
+
+      // Reset to multi-class progression route button
+      container.querySelector('#btnExpResetToPlanner')?.addEventListener('click', () => {
+        const defaultOverrides = {};
+        ['starter', 'beginner', 'specialty', 'advanced', 'master', 'divine'].forEach(t => {
+          if (t === 'starter') defaultOverrides[t] = build.baseClass || 'Noble';
+          else if (Array.isArray(currentPath[t]) && currentPath[t].length > 0) {
+            defaultOverrides[t] = currentPath[t][0];
+          }
+        });
+        expData.routeOverrides = defaultOverrides;
+        const act = currentPath.activeClass || (currentPath.specialty && currentPath.specialty[0]) || (currentPath.beginner && currentPath.beginner[0]) || build.joinClass || 'Gladiator';
+        expData.currentClass = act;
+        updateExpectedStatsUI();
+        showToast(`Reset Expected Stats path to match Multi-Class Progression Route!`, 'gold');
+      });
     };
 
-    // Level input change listener
-    const inputCustomLevel = detailsContainer.querySelector('#inputCustomLevel');
-    inputCustomLevel?.addEventListener('input', (e) => {
+    // Level input change
+    const expStatsLevelInput = detailsContainer.querySelector('#expStatsLevelInput');
+    expStatsLevelInput?.addEventListener('input', (e) => {
       const val = parseInt(e.target.value, 10);
-      if (!isNaN(val) && val >= 1 && val <= 50) {
-        customData.level = val;
-        updateStatAdvisorResults();
+      if (!isNaN(val) && val >= 1 && val <= 60) {
+        expData.level = val;
+        updateExpectedStatsUI();
       }
     });
 
-    // Current Class change listener
-    const inputCustomClass = detailsContainer.querySelector('#inputCustomClass');
-    inputCustomClass?.addEventListener('change', (e) => {
-      customData.currentClass = e.target.value;
-      updateStatAdvisorResults();
+    // Level slider change
+    const expStatsLevelSlider = detailsContainer.querySelector('#expStatsLevelSlider');
+    expStatsLevelSlider?.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      if (!isNaN(val) && val >= 1 && val <= 60) {
+        expData.level = val;
+        updateExpectedStatsUI();
+      }
     });
 
-    // 9 Stats inputs change listener
-    detailsContainer.querySelectorAll('.stat-advisor-number-input').forEach(inp => {
-      inp.addEventListener('input', () => {
-        const st = inp.dataset.customStat;
-        const val = parseInt(inp.value, 10);
-        if (!isNaN(val) && val >= 0 && val <= 99) {
-          customData.stats[st] = val;
-          const cell = inp.closest('.stat-advisor-input-cell');
-          const diffEl = cell?.querySelector('.stat-advisor-diff');
-          if (diffEl) {
-            const bVal = baseStats[st] !== undefined ? baseStats[st] : 10;
-            const diff = val - bVal;
-            diffEl.textContent = diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '0';
-            diffEl.style.color = diff > 0 ? '#34d399' : diff < 0 ? '#f87171' : 'var(--text-dim)';
-          }
-          updateStatAdvisorResults();
+    // Class select change
+    const expStatsClassSelect = detailsContainer.querySelector('#expStatsClassSelect');
+    expStatsClassSelect?.addEventListener('change', (e) => {
+      const newClass = e.target.value;
+      expData.currentClass = newClass;
+      const newTier = normalizeClassTier(classMap.get(newClass)?.tier);
+      if (newTier) expData.routeOverrides[newTier] = newClass;
+
+      const tierMinLevels = { starter: 1, beginner: 5, specialty: 20, advanced: 35, master: 45, divine: 45 };
+      if (expData.level < (tierMinLevels[newTier] || 1)) {
+        expData.level = tierMinLevels[newTier] || 20;
+      }
+      updateExpectedStatsUI();
+    });
+
+    // Step buttons (-5, -1, +1, +5)
+    detailsContainer.querySelectorAll('.exp-btn-step').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = parseInt(btn.dataset.step, 10) || 0;
+        const cur = expData.level || 20;
+        const nextLv = Math.max(1, Math.min(60, cur + step));
+        expData.level = nextLv;
+        updateExpectedStatsUI();
+      });
+    });
+
+    // Preset buttons (Join Lv, Lv 20, Lv 35, Lv 45, Lv 50)
+    detailsContainer.querySelectorAll('.exp-preset-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lv = parseInt(btn.dataset.presetLv, 10);
+        if (!isNaN(lv) && lv >= 1 && lv <= 60) {
+          expData.level = lv;
+          updateExpectedStatsUI();
         }
       });
     });
 
-    // 10 Weapon Ranks select change listener
-    detailsContainer.querySelectorAll('.stat-advisor-rank-select').forEach(sel => {
-      sel.addEventListener('change', () => {
-        const sk = sel.dataset.customRank;
-        if (sk) {
-          customData.ranks[sk] = sel.value;
-          updateStatAdvisorResults();
-        }
-      });
+    // Sync active class button
+    detailsContainer.querySelector('#btnExpSyncTopActiveClass')?.addEventListener('click', () => {
+      const act = currentPath.activeClass || (currentPath.specialty && currentPath.specialty[0]) || (currentPath.beginner && currentPath.beginner[0]) || build.joinClass || 'Gladiator';
+      expData.currentClass = act;
+      const actTier = normalizeClassTier(classMap.get(act)?.tier);
+      if (actTier) expData.routeOverrides[actTier] = act;
+      updateExpectedStatsUI();
+      showToast(`Synced expected stats calculator class to "${act}"!`, "info");
     });
 
-    // Auto expected stats & ranks button listener
-    detailsContainer.querySelector('#btnAutoExpectedStats')?.addEventListener('click', () => {
-      const jLv = build.joinLevel || 1;
-      const lvDiff = Math.max(0, customData.level - jLv);
-      const growths = getCharacterBaseGrowths(char.name);
-      allStats.forEach(st => {
-        const bVal = baseStats[st] !== undefined ? baseStats[st] : 10;
-        const gVal = growths[st] !== undefined ? growths[st] : 35;
-        const expVal = bVal + Math.round(lvDiff * (gVal / 100));
-        customData.stats[st] = expVal;
-        const inp = detailsContainer.querySelector(`.stat-advisor-number-input[data-custom-stat="${st}"]`);
-        if (inp) inp.value = expVal;
-        const cell = inp?.closest('.stat-advisor-input-cell');
-        const diffEl = cell?.querySelector('.stat-advisor-diff');
-        if (diffEl) {
-          const diff = expVal - bVal;
-          diffEl.textContent = diff > 0 ? `+${diff}` : diff < 0 ? `${diff}` : '0';
-          diffEl.style.color = diff > 0 ? '#34d399' : diff < 0 ? '#f87171' : 'var(--text-dim)';
-        }
-      });
-
-      // Auto-fill realistic weapon ranks
-      const apt = build.aptitude || {};
-      const curCl = classMap.get(customData.currentClass);
-      const curClTypes = curCl ? (curCl.usableTypes || []) : [];
-      WEAPON_RANK_SKILLS.forEach(w => {
-        const isBoon = apt[w.key] === 'Boon';
-        const isBane = apt[w.key] === 'Bane';
-        const usesW = curClTypes.includes(w.key);
-        let rankIdx = 0; // 'E'
-        if (isBoon) {
-          if (customData.level >= 45) rankIdx = 10; // 'S'
-          else if (customData.level >= 35) rankIdx = 8; // 'A'
-          else if (customData.level >= 20) rankIdx = 6; // 'B'
-          else if (customData.level >= 10) rankIdx = 4; // 'C'
-          else rankIdx = 2; // 'D'
-        } else if (isBane) {
-          if (customData.level >= 45) rankIdx = 4; // 'C'
-          else if (customData.level >= 25) rankIdx = 2; // 'D'
-          else rankIdx = 0; // 'E'
-        } else {
-          // Neutral
-          if (customData.level >= 45) rankIdx = 8; // 'A'
-          else if (customData.level >= 35) rankIdx = 6; // 'B'
-          else if (customData.level >= 20) rankIdx = 4; // 'C'
-          else if (customData.level >= 10) rankIdx = 2; // 'D'
-          else rankIdx = 0; // 'E'
-        }
-        if (usesW && rankIdx < 10) {
-          rankIdx = Math.min(10, rankIdx + 1);
-        }
-        const expRank = ALL_RANKS[rankIdx] || 'E';
-        customData.ranks[w.key] = expRank;
-        const sel = detailsContainer.querySelector(`.stat-advisor-rank-select[data-custom-rank="${w.key}"]`);
-        if (sel) sel.value = expRank;
-      });
-
-      updateStatAdvisorResults();
-      showToast(`Filled expected average stats & weapon ranks for ${char.name} at Level ${customData.level}!`, 'info');
-    });
-
-    // Reset base stats button listener
-    detailsContainer.querySelector('#btnResetBaseStats')?.addEventListener('click', () => {
-      const jLv = build.joinLevel || 1;
-      const jClass = (currentPath.activeClass || build.joinClass || (currentPath.beginner && currentPath.beginner[0]) || 'Gladiator');
-      customData.level = jLv;
-      customData.currentClass = jClass;
-      if (inputCustomLevel) inputCustomLevel.value = jLv;
-      if (inputCustomClass) inputCustomClass.value = jClass;
-
-      allStats.forEach(st => {
-        const bVal = baseStats[st] !== undefined ? baseStats[st] : 10;
-        customData.stats[st] = bVal;
-        const inp = detailsContainer.querySelector(`.stat-advisor-number-input[data-custom-stat="${st}"]`);
-        if (inp) inp.value = bVal;
-        const cell = inp?.closest('.stat-advisor-input-cell');
-        const diffEl = cell?.querySelector('.stat-advisor-diff');
-        if (diffEl) {
-          diffEl.textContent = '0';
-          diffEl.style.color = 'var(--text-dim)';
-        }
-      });
-
-      const apt = build.aptitude || {};
-      WEAPON_RANK_SKILLS.forEach(w => {
-        const baseR = apt[w.key] === 'Boon' ? (jLv >= 20 ? 'C' : jLv >= 10 ? 'D+' : 'D') : (jLv >= 20 ? 'D' : 'E');
-        customData.ranks[w.key] = baseR;
-        const sel = detailsContainer.querySelector(`.stat-advisor-rank-select[data-custom-rank="${w.key}"]`);
-        if (sel) sel.value = baseR;
-      });
-
-      updateStatAdvisorResults();
-      showToast(`Reset ${char.name} to recruitment join bases (Level ${jLv}, ${jClass})!`, 'info');
-    });
-
-    // Initial binding for apply button
-    detailsContainer.querySelector('#btnApplyStatRecToPath')?.addEventListener('click', applyStatRecToPath);
+    // Initial binding for chain step dropdowns and reset button
+    bindChainListeners(detailsContainer);
   }
 
-  // --- TAB 4: ROUTE ROSTER & HEAT MAP VIEW ---
+    // --- TAB 4: ROUTE ROSTER & HEAT MAP VIEW ---
   function renderRosterView() {
     const container = document.getElementById('rosterGridContainer');
     const heatmapContainer = document.getElementById('squadHeatmapContainer');
@@ -24466,7 +24601,7 @@ if (typeof window !== 'undefined') {
         leda: Array.from(state.locks?.leda || ['Leda'])
       },
       classRoutes: state.classRoutes,
-      customBuildStats: state.customBuildStats || {},
+      expectedStatsInputs: state.expectedStatsInputs || {},
       selectedBuildRoute: state.selectedBuildRoute,
       completedEvents: Array.from(state.completedEvents || []),
       calendarRoute: state.calendarRoute,
@@ -24500,7 +24635,7 @@ if (typeof window !== 'undefined') {
 
     state.currentDraftName = trimmed;
     state.activeRoutes = [...DEFAULT_ACTIVE_ROUTES];
-    state.customBuildStats = {};
+    state.expectedStatsInputs = {};
     initializeAssignments();
 
     saveDraftToStorage(trimmed);
@@ -24579,7 +24714,7 @@ if (typeof window !== 'undefined') {
     });
 
     state.classRoutes = { ...d.classRoutes };
-    if (d.customBuildStats) state.customBuildStats = { ...d.customBuildStats };
+    if (d.expectedStatsInputs) state.expectedStatsInputs = { ...d.expectedStatsInputs };
     if (d.selectedBuildRoute) state.selectedBuildRoute = d.selectedBuildRoute;
     if (d.completedEvents && Array.isArray(d.completedEvents)) {
       state.completedEvents = new Set(d.completedEvents);
@@ -24611,7 +24746,7 @@ if (typeof window !== 'undefined') {
         leda: Array.from(state.locks?.leda || ['Leda'])
       },
       classRoutes: state.classRoutes,
-      customBuildStats: state.customBuildStats || {}
+      expectedStatsInputs: state.expectedStatsInputs || {}
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -24665,7 +24800,7 @@ if (typeof window !== 'undefined') {
           });
           state.activeRoutes = [...DEFAULT_ACTIVE_ROUTES];
           if (parsed.classRoutes) state.classRoutes = parsed.classRoutes;
-          if (parsed.customBuildStats) state.customBuildStats = parsed.customBuildStats;
+          if (parsed.expectedStatsInputs) state.expectedStatsInputs = parsed.expectedStatsInputs;
           renderApp();
           renderDraftDropdown();
           showToast("Successfully imported plan!", "gold");
@@ -26042,7 +26177,7 @@ if (typeof window !== 'undefined') {
       `;
     }).join('') + `
       <button class="cal-month-pill ${activeMonth === 'all' ? 'active' : ''}" data-month="all">
-        <span>All Months (Timeline)</span>
+        <span>All Months</span>
         <span class="month-count">${routeEvents.length}</span>
       </button>
     `;
@@ -26054,15 +26189,14 @@ if (typeof window !== 'undefined') {
         const isAct = w.weekNum === curWeekNum;
         return `
           <button class="cal-week-pill ${isAct ? 'active' : ''}" data-week="${w.weekNum}">
-            <span class="cal-week-pill-title">Week ${w.weekNum}</span>
-            <span class="cal-week-pill-range">Days ${w.startDay}–${w.endDay}</span>
+            <span class="cal-week-pill-title">W${w.weekNum}</span>
+            <span class="cal-week-pill-range">${w.startDay}–${w.endDay}</span>
           </button>
         `;
       }).join('');
 
       weekStripHtml = `
         <div class="cal-week-strip">
-          <span class="cal-week-strip-label">Jump to Week:</span>
           <div class="cal-week-pills-row">
             ${weekPills}
           </div>
@@ -26108,31 +26242,31 @@ if (typeof window !== 'undefined') {
     if (viewMode === 'day' && activeMonth !== 'all') {
       const utcDay = new Date(Date.UTC(year, activeMonth - 1, selDay)).getUTCDay();
       const wd = CAL_WEEKDAYS_DEF[(utcDay + 6) % 7];
-      monthTitleStr = `${currMDef.name} ${selDay} · ${wd.saint}'s Day (${wd.day})`;
-      monthSubStr = `Year ${year} · ${rInfo.icon} ${rInfo.name} Campaign · Daily Spotlight`;
-      prevBtnText = '◀ Earlier Day';
-      nextBtnText = 'Later Day ▶';
+      monthTitleStr = `${currMDef.name} ${selDay} (${wd.day})`;
+      monthSubStr = '';
+      prevBtnText = '◀ Prev';
+      nextBtnText = 'Next ▶';
       isPrevDisabled = (activeMonth === validMonths[0] && selDay === 1);
       isNextDisabled = (activeMonth === validMonths[validMonths.length - 1] && selDay === currMDef.days);
     } else if (viewMode === 'week' && activeMonth !== 'all') {
-      monthTitleStr = `${currMDef.name} (${currMDef.en}) · Continuous Week Flow`;
-      monthSubStr = `Days 1–${currMDef.days} · ${rInfo.icon} ${rInfo.name} Campaign`;
-      prevBtnText = '◀ Prev Week';
-      nextBtnText = 'Next Week ▶';
+      monthTitleStr = `${currMDef.name} (${currMDef.en})`;
+      monthSubStr = '';
+      prevBtnText = '◀ Prev';
+      nextBtnText = 'Next ▶';
       isPrevDisabled = (activeMonth === validMonths[0] && curWeekNum === 1);
       isNextDisabled = (activeMonth === validMonths[validMonths.length - 1] && curWeekNum === monthWeeks.length);
     } else if (activeMonth === 'all') {
-      monthTitleStr = `Full Campaign Timeline · Year ${year}`;
-      monthSubStr = `Chronological list of all events, battles, quests, and birthdays for ${rInfo.name}.`;
-      prevBtnText = '◀ Prev Month';
-      nextBtnText = 'Next Month ▶';
+      monthTitleStr = `Timeline · Year ${year}`;
+      monthSubStr = '';
+      prevBtnText = '◀ Prev';
+      nextBtnText = 'Next ▶';
       isPrevDisabled = true;
       isNextDisabled = true;
     } else {
-      monthTitleStr = `${currMDef.name} (${currMDef.en}) · Year ${year}`;
-      monthSubStr = `${currMDef.days} Days · ${rInfo.icon} ${rInfo.name} Campaign`;
-      prevBtnText = '◀ Prev Month';
-      nextBtnText = 'Next Month ▶';
+      monthTitleStr = `${currMDef.name} (${currMDef.en})`;
+      monthSubStr = '';
+      prevBtnText = '◀ Prev';
+      nextBtnText = 'Next ▶';
       isPrevDisabled = (mIdx === 0);
       isNextDisabled = (mIdx === validMonths.length - 1);
     }
@@ -26167,14 +26301,12 @@ if (typeof window !== 'undefined') {
             <div class="cal-week-no-events ft-active">
               <span class="cal-week-no-events-icon">🕊️</span>
               <div class="cal-week-no-events-title">${freeTimeName}</div>
-              <div class="cal-week-no-events-sub">Explore campus, dine, training & activities.</div>
             </div>
           `;
         } else {
           eventsHtml = `
             <div class="cal-week-no-events">
               <span class="cal-week-no-events-dash">—</span>
-              <div class="cal-week-no-events-sub">No scheduled events</div>
             </div>
           `;
         }
@@ -26194,10 +26326,9 @@ if (typeof window !== 'undefined') {
                   <span class="cal-wec-badge badge-birthday">🎂 Birthday</span>
                 </div>
                 <div class="cal-wec-birthday-body">
-                  ${renderUnitAvatar(hName, 36)}
+                  ${renderUnitAvatar(hName, 32)}
                   <div class="cal-wec-bday-text">
                     <div class="cal-wec-bday-name">${hName}</div>
-                    <div class="cal-wec-bday-sub">Birthday Celebration · Morale Boost</div>
                   </div>
                 </div>
               </div>
@@ -26321,9 +26452,9 @@ if (typeof window !== 'undefined') {
             <div class="cal-week-col-name">${wd.day}</div>
             <div class="cal-week-col-saint">${wd.saint}</div>
             <div class="cal-week-col-daynum">${d}</div>
-            ${isBmDay ? `<div class="cal-wec-bookmark-ribbon" title="Campaign Bookmark: Chapter ${savedBookmark.num}">📌 Ch ${savedBookmark.num} Bookmark</div>` : ''}
+            ${isBmDay ? `<div class="cal-wec-bookmark-ribbon" title="Campaign Bookmark: Chapter ${savedBookmark.num}">📌 Ch ${savedBookmark.num}</div>` : ''}
             ${hasFt ? `<div class="cal-week-ft-pill" title="${freeTimeName}">🕊️ Free Time</div>` : ''}
-            <button type="button" class="cal-day-focus-btn" data-day="${d}" title="Spotlight Day ${d} in Daily View">☀️ Day Focus</button>
+            <button type="button" class="cal-day-focus-btn" data-day="${d}" title="Spotlight Day ${d} in Daily View">☀️ Focus</button>
           </div>
           <div class="cal-week-events-wrap">
             ${eventsHtml}
@@ -26634,7 +26765,7 @@ if (typeof window !== 'undefined') {
           <div class="cal-week-section" id="calWeekSec_${w.weekNum}" data-week="${w.weekNum}">
             <div class="cal-week-section-header">
               <div class="cal-wsh-badge">Week ${w.weekNum}</div>
-              <div class="cal-wsh-range">Days ${w.startDay}–${w.endDay} · ${currMDef.name}</div>
+              <div class="cal-wsh-range">Days ${w.startDay}–${w.endDay}</div>
             </div>
             <div class="cal-week-days-row">
               ${daysHtml}
@@ -26934,16 +27065,16 @@ if (typeof window !== 'undefined') {
       const bmMDef = CAL_MONTHS_DEF[bmChObj.month];
       const bmMonName = bmMDef ? bmMDef.name.slice(0, 3) : `M${bmChObj.month}`;
       bookmarkActionsHtml = `
-        <button type="button" class="btn btn-sm cal-btn-bookmark-jump" id="btnCalJumpSavedBookmark" title="Jump directly to your bookmarked Chapter ${bmChObj.num} (${bmMDef?.name} ${bmChObj.day})">
-          📌 Go to Ch ${bmChObj.num} (${bmMonName} ${bmChObj.day})
+        <button type="button" class="btn btn-sm cal-btn-bookmark-jump" id="btnCalJumpSavedBookmark" title="Jump to bookmarked Chapter ${bmChObj.num} (${bmMDef?.name} ${bmChObj.day})">
+          📌 Ch ${bmChObj.num} (${bmMonName} ${bmChObj.day})
         </button>
-        <button type="button" class="btn btn-sm cal-btn-bookmark-star ${isAtBookmarkDate ? 'active' : ''}" id="btnCalToggleBookmark" title="${isAtBookmarkDate ? 'Chapter ' + bmChObj.num + ' is currently bookmarked. Click to clear bookmark.' : 'Set current chapter as campaign bookmark'}">
-          ${isAtBookmarkDate ? '★ Bookmarked' : '☆ Set Bookmark'}
+        <button type="button" class="btn btn-sm cal-btn-bookmark-star ${isAtBookmarkDate ? 'active' : ''}" id="btnCalToggleBookmark" title="${isAtBookmarkDate ? 'Chapter ' + bmChObj.num + ' is bookmarked. Click to clear.' : 'Set current chapter as bookmark'}">
+          ${isAtBookmarkDate ? '★ Saved' : '☆ Bookmark'}
         </button>
       `;
     } else if (activeChapterForCurDate) {
       bookmarkActionsHtml = `
-        <button type="button" class="btn btn-sm cal-btn-bookmark-star" id="btnCalToggleBookmark" title="Bookmark Chapter ${activeChapterForCurDate.num} as your current campaign progress">
+        <button type="button" class="btn btn-sm cal-btn-bookmark-star" id="btnCalToggleBookmark" title="Bookmark Chapter ${activeChapterForCurDate.num}">
           ☆ Bookmark Ch ${activeChapterForCurDate.num}
         </button>
       `;
@@ -26960,10 +27091,10 @@ if (typeof window !== 'undefined') {
             ${routePillsHtml}
           </div>
           <div class="cal-view-modes">
-            <button class="cal-view-btn ${viewMode === 'day' && activeMonth !== 'all' ? 'active' : ''}" id="btnCalModeDay" title="Daily Basis View (Inspired by Marigold)">☀️ Day View</button>
-            <button class="cal-view-btn ${viewMode === 'week' && activeMonth !== 'all' ? 'active' : ''}" id="btnCalModeWeek" title="Continuous Horizontal Week Scroll">📅 Week Scroll</button>
-            <button class="cal-view-btn ${viewMode === 'grid' && activeMonth !== 'all' ? 'active' : ''}" id="btnCalModeGrid" title="Month Grid View">🗓️ Month Grid</button>
-            <button class="cal-view-btn ${viewMode === 'timeline' || activeMonth === 'all' ? 'active' : ''}" id="btnCalModeTimeline" title="Timeline Stream View">📜 Timeline</button>
+            <button class="cal-view-btn ${viewMode === 'day' && activeMonth !== 'all' ? 'active' : ''}" id="btnCalModeDay" title="Daily View">☀️ Day</button>
+            <button class="cal-view-btn ${viewMode === 'week' && activeMonth !== 'all' ? 'active' : ''}" id="btnCalModeWeek" title="Week View">📅 Week</button>
+            <button class="cal-view-btn ${viewMode === 'grid' && activeMonth !== 'all' ? 'active' : ''}" id="btnCalModeGrid" title="Month Grid View">🗓️ Month</button>
+            <button class="cal-view-btn ${viewMode === 'timeline' || activeMonth === 'all' ? 'active' : ''}" id="btnCalModeTimeline" title="Timeline Stream">📜 Timeline</button>
           </div>
         </div>
 
@@ -26973,7 +27104,7 @@ if (typeof window !== 'undefined') {
             <button class="btn btn-sm" id="btnCalPrev" title="Navigate backwards" ${isPrevDisabled ? 'disabled style="opacity:0.4;"' : ''}>${prevBtnText}</button>
             <div>
               <div class="cal-month-main-title">${monthTitleStr}</div>
-              <div class="cal-month-sub">${monthSubStr}</div>
+              ${monthSubStr ? `<div class="cal-month-sub">${monthSubStr}</div>` : ''}
             </div>
             <button class="btn btn-sm" id="btnCalNext" title="Navigate forwards" ${isNextDisabled ? 'disabled style="opacity:0.4;"' : ''}>${nextBtnText}</button>
           </div>
@@ -26986,7 +27117,7 @@ if (typeof window !== 'undefined') {
                 <span>Chapter:</span>
               </label>
               <select id="calChapterSelect" class="cal-chapter-select" title="Jump to the starting date of any chapter">
-                <option value="">Jump to Chapter...</option>
+                <option value="">Chapter...</option>
                 ${chapterOptionsHtml}
               </select>
             </div>
@@ -27008,7 +27139,7 @@ if (typeof window !== 'undefined') {
         <div class="cal-controls-row">
           <div class="cal-controls-filter-group">
             <button id="btnToggleCalEventFilters" class="btn btn-sm cal-toggle-filters-btn ${isFilterActive ? 'has-active-filter' : ''} ${isFilterShown ? 'active' : ''}" type="button" title="Toggle Event Category Filters">
-              <span>🏷️</span> Event Filters ${isFilterActive ? `· <strong>${activeCatLabel}</strong>` : ''} <span id="calFilterIndicator">${isFilterShown ? '▾' : '▸'}</span>
+              <span>🏷️</span> Filters ${isFilterActive ? `· <strong>${activeCatLabel}</strong>` : ''} <span id="calFilterIndicator">${isFilterShown ? '▾' : '▸'}</span>
             </button>
             ${isFilterActive ? `
               <button id="btnCalClearFilter" class="btn btn-sm cal-btn-clear-filter" type="button" title="Clear category filter and show all events">
@@ -27016,7 +27147,7 @@ if (typeof window !== 'undefined') {
               </button>
             ` : ''}
           </div>
-          <input type="text" class="cal-search-input" id="calSearchInput" placeholder="🔍 Search quests, rewards, enemies..." value="${activeSearch}">
+          <input type="text" class="cal-search-input" id="calSearchInput" placeholder="🔍 Search events..." value="${activeSearch}">
         </div>
 
         <div class="cal-category-chips-row" id="calCategoryChipsRow" style="display: ${isFilterShown ? 'flex' : 'none'};">
@@ -27208,11 +27339,24 @@ if (typeof window !== 'undefined') {
       renderCalendarView();
     });
 
-    // Focus Day button inside week columns
+    // Focus Day button or header inside week columns
     container.querySelectorAll('.cal-day-focus-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const d = parseInt(btn.dataset.day, 10);
+        if (d) {
+          state.calendarSelectedDay = d;
+          state.calendarViewMode = 'day';
+          renderCalendarView();
+        }
+      });
+    });
+
+    container.querySelectorAll('.cal-week-col-header').forEach(hdr => {
+      hdr.addEventListener('click', (e) => {
+        if (e.target.closest('button, input, a')) return;
+        const card = hdr.closest('.cal-week-col-card');
+        const d = parseInt(card?.dataset?.day, 10);
         if (d) {
           state.calendarSelectedDay = d;
           state.calendarViewMode = 'day';
@@ -28314,7 +28458,6 @@ if (typeof window !== 'undefined') {
   setTimeout(bootstrap, 300);
 
 })();
-
   </script>
 </body>
 </html>
