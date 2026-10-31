@@ -8082,8 +8082,6 @@ button {
             <option value="chapter">Sort: Earliest Chapter</option>
             <option value="renown">Sort: Lowest Renown</option>
             <option value="supports">Sort: Most Support Links</option>
-            <option value="stats_strengths">Sort: Most Strengths (50%+)</option>
-            <option value="stats_weaknesses">Sort: Most Weaknesses (25%-)</option>
             <option value="aptitudes_boons">Sort: Most Skill Boons</option>
             <option value="aptitudes_banes">Sort: Most Skill Banes</option>
             <option value="magic">Sort: Most Spells Learned (Mages First)</option>
@@ -8094,7 +8092,7 @@ button {
           <!-- Column Visibility Manager Dropdown -->
           <div class="col-visibility-wrap">
             <button id="btnToggleColVisibility" class="col-toggle-btn" type="button" title="Customize visible columns in the planner table">
-              <span>👁️</span> Columns <span id="colVisibleCount" class="badge col-badge">7/7</span> ▾
+              <span>👁️</span> Columns <span id="colVisibleCount" class="badge col-badge">6/6</span> ▾
             </button>
             <div id="colVisibilityMenu" class="col-visibility-menu" style="display:none;">
               <div class="col-menu-header">
@@ -8128,10 +8126,6 @@ button {
                   <span>Class Path (Active)</span>
                 </label>
                 <label class="col-menu-item">
-                  <input type="checkbox" class="col-toggle-cb" data-col="stats" checked>
-                  <span>Stat Strengths &amp; Weaknesses</span>
-                </label>
-                <label class="col-menu-item">
                   <input type="checkbox" class="col-toggle-cb" data-col="aptitudes" checked>
                   <span>Boons &amp; Banes</span>
                 </label>
@@ -8143,87 +8137,8 @@ button {
             </div>
           </div>
 
-          <button id="btnToggleStatFilter" class="btn" type="button" title="Toggle Stat Profile Filters &amp; Thresholds (Strengths, Weaknesses, Growths)">
-            <span>📊</span> Stat Filters <span id="statFilterIndicator" style="font-size:0.75rem; opacity:0.8;">▸</span>
-          </button>
-
           <button id="btnClearUnlocked" class="btn btn-danger" title="Clear optional unit selections across routes back to default auto-join squads">
             <span>🧹</span> Clear Selections
-          </button>
-        </div>
-      </div>
-
-      <!-- Stat Thresholds & Growth Profile Controls -->
-      <div class="stat-threshold-bar" id="statThresholdBar" style="display:none;">
-        <div class="stat-threshold-controls-left">
-          <div class="stat-threshold-title">
-            <span class="threshold-icon">📊</span>
-            <span>Stat Profile Filters:</span>
-          </div>
-
-          <!-- Strength Threshold Group -->
-          <div class="threshold-group">
-            <span class="threshold-group-label strength" title="Growth rate threshold to count as a Strength (default 50%+)">
-              <span>▲</span> Strengths:
-            </span>
-            <div class="threshold-toggle-cluster" id="strengthToggleCluster">
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="strength" data-val="40">40%</button>
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="strength" data-val="45">45%</button>
-              <button type="button" class="btn-thresh-toggle active strength" data-thresh-type="strength" data-val="50">50%</button>
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="strength" data-val="55">55%</button>
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="strength" data-val="60">60%</button>
-            </div>
-            <select id="selectStrengthThresh" class="select-input select-thresh-compact" title="Exact Strength threshold">
-              <option value="35">≥ 35%</option>
-              <option value="40">≥ 40%</option>
-              <option value="45">≥ 45%</option>
-              <option value="50" selected>≥ 50% (Default)</option>
-              <option value="55">≥ 55%</option>
-              <option value="60">≥ 60%</option>
-              <option value="65">≥ 65%</option>
-            </select>
-          </div>
-
-          <!-- Weakness Threshold Group -->
-          <div class="threshold-group">
-            <span class="threshold-group-label weakness" title="Growth rate threshold to count as a Weakness (default 25% or lower)">
-              <span>▼</span> Weaknesses:
-            </span>
-            <div class="threshold-toggle-cluster" id="weaknessToggleCluster">
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="weakness" data-val="15">15%</button>
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="weakness" data-val="20">20%</button>
-              <button type="button" class="btn-thresh-toggle active weakness" data-thresh-type="weakness" data-val="25">25%</button>
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="weakness" data-val="30">30%</button>
-              <button type="button" class="btn-thresh-toggle" data-thresh-type="weakness" data-val="35">35%</button>
-            </div>
-            <select id="selectWeaknessThresh" class="select-input select-thresh-compact" title="Exact Weakness threshold">
-              <option value="15">≤ 15%</option>
-              <option value="20">≤ 20%</option>
-              <option value="25" selected>≤ 25% (Default)</option>
-              <option value="30">≤ 30%</option>
-              <option value="35">≤ 35%</option>
-              <option value="40">≤ 40%</option>
-            </select>
-          </div>
-
-          <!-- Growth Mode Toggle (Base vs Effective) -->
-          <div class="threshold-group">
-            <span class="threshold-group-label" style="color: var(--text-muted);" title="Toggle base innate growths or effective growths with active deployed class">
-              Growths:
-            </span>
-            <div class="threshold-toggle-cluster" id="statModeToggleCluster">
-              <button type="button" class="btn-thresh-toggle active mode" data-stat-mode="base" title="Innate character growth rates">Base</button>
-              <button type="button" class="btn-thresh-toggle" data-stat-mode="effective" title="Effective growths (Innate + Active Class Modifiers)">Effective (+Class)</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="stat-threshold-controls-right" style="display:flex; align-items:center; gap:0.4rem;">
-          <button id="btnResetThresh" class="btn-thresh-reset" type="button" title="Reset thresholds to default (50% strengths, 25% weaknesses, Base mode)">
-            ↺ Reset
-          </button>
-          <button id="btnCloseStatFilter" class="btn-thresh-reset" type="button" title="Hide Stat Profile Filters bar" style="padding:0.2rem 0.45rem;">
-            ✕
           </button>
         </div>
       </div>
@@ -8238,7 +8153,6 @@ button {
               <th class="col-requirement" data-col-id="requirement" style="min-width: 170px;">Requirement <button type="button" class="btn-col-hide" data-col="requirement" title="Hide column">✕</button></th>
               <th class="sortable-th col-earliest" data-sort-col="chapter" data-col-id="earliest" style="min-width: 125px;">Earliest <span class="sort-icon"></span><button type="button" class="btn-col-hide" data-col="earliest" title="Hide column">✕</button></th>
               <th class="sortable-th col-class" data-sort-col="class" data-col-id="class" style="min-width: 160px;">Class Path (Active) <span class="sort-icon"></span><button type="button" class="btn-col-hide" data-col="class" title="Hide column">✕</button></th>
-              <th class="sortable-th col-stats" data-sort-col="stats" data-col-id="stats" style="min-width: 220px;" title="Click to sort by stat strengths and weaknesses">Stat Strengths &amp; Weaknesses <span class="sort-icon"></span><button type="button" class="btn-col-hide" data-col="stats" title="Hide column">✕</button></th>
               <th class="sortable-th col-aptitudes" data-sort-col="aptitudes" data-col-id="aptitudes" style="min-width: 230px;" title="Click to sort by weapon and movement boons &amp; banes">Boons &amp; Banes <span class="sort-icon"></span><button type="button" class="btn-col-hide" data-col="aptitudes" title="Hide column">✕</button></th>
               <th class="sortable-th col-magic" data-sort-col="magic" data-col-id="magic" style="min-width: 260px;" title="Click to sort by magic spells learned (Reason &amp; Faith)">Magic Skills &amp; Spells <span class="sort-icon"></span><button type="button" class="btn-col-hide" data-col="magic" title="Hide column">✕</button></th>
             </tr>
@@ -8277,9 +8191,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-cai" data-build="Cai" data-build-route="cai" title="Click to edit Cai's class path on Cai (Orichaldia)">
           <span>🦊</span> <span>Orichaldia</span>
         </button></td>
-      <td class="col-stats"><div class="stat-balanced-pill" title="Balanced stat distribution: All growths are between 35% and 45% (neither ≥ 50% nor ≤ 25%)">
-          <span>⚖️ Balanced</span> <span class="stat-balanced-range">(35–45%)</span>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8334,16 +8245,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-dietrich" data-build="Dietrich" data-build-route="dietrich" title="Click to edit Dietrich's class path on Dietrich (Swordmaster)">
           <span>🦁</span> <span>Swordmaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Dex growth: 60% (Strength ≥ 50%)">Dex 60%</span><span class="stat-chip strength" title="Spd growth: 50% (Strength ≥ 50%)">Spd 50%</span><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span><span class="stat-chip strength" title="Cha growth: 60% (Strength ≥ 50%)">Cha 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8398,16 +8299,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-theodora" data-build="Theodora" data-build-route="theodora" title="Click to edit Theodora's class path on Theodora (Sentinel)">
           <span>🐺</span> <span>Sentinel</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 70% (Strength ≥ 50%)">HP 70%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span><span class="stat-chip strength" title="Cha growth: 50% (Strength ≥ 50%)">Cha 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8462,16 +8353,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-leda" data-build="Leda" data-build-route="leda" title="Click to edit Leda's class path on Leda (Shadow Seeker)">
           <span>🦅</span> <span>Shadow Seeker</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span><span class="stat-chip strength" title="Spd growth: 65% (Strength ≥ 50%)">Spd 65%</span><span class="stat-chip strength" title="Cha growth: 55% (Strength ≥ 50%)">Cha 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Lck growth: 25% (Weakness ≤ 25%)">Lck 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8526,16 +8407,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Alexandra" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Celestial Trooper</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 55% (Strength ≥ 50%)">Spd 55%</span><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span><span class="stat-chip strength" title="Cha growth: 50% (Strength ≥ 50%)">Cha 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8590,16 +8461,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Benditz" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Bow Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8654,16 +8515,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-theodora" data-build="Bonaventure" data-build-route="theodora" title="Click to edit Bonaventure's class path on Theodora (Druid)">
           <span>🐺</span> <span>Druid</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8718,16 +8569,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-leda" data-build="Buccar" data-build-route="leda" title="Click to edit Buccar's class path on Leda (Bau Lord)">
           <span>🦅</span> <span>Bau Lord</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Spd growth: 25% (Weakness ≤ 25%)">Spd 25%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8782,16 +8623,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-leda" data-build="Catania" data-build-route="leda" title="Click to edit Catania's class path on Leda (Celestial Trooper)">
           <span>🦅</span> <span>Celestial Trooper</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span><span class="stat-chip strength" title="Spd growth: 55% (Strength ≥ 50%)">Spd 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8846,16 +8677,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Dadao" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Str growth: 55% (Strength ≥ 50%)">Str 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span><span class="stat-chip weakness" title="Lck growth: 25% (Weakness ≤ 25%)">Lck 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8910,16 +8731,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Dante" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Druid</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None (max 45%)</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Def growth: 20% (Weakness ≤ 25%)">Def 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -8974,16 +8785,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Diego" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Swordmaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 60% (Strength ≥ 50%)">Dex 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9038,16 +8839,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-dietrich" data-build="Esmeralda" data-build-route="dietrich" title="Click to edit Esmeralda's class path on Dietrich (Bau Lord)">
           <span>🦁</span> <span>Bau Lord</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 55% (Strength ≥ 50%)">HP 55%</span><span class="stat-chip strength" title="Str growth: 55% (Strength ≥ 50%)">Str 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9102,16 +8893,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-dietrich" data-build="Fabio" data-build-route="dietrich" title="Click to edit Fabio's class path on Dietrich (Druid)">
           <span>🦁</span> <span>Druid</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Mag growth: 50% (Strength ≥ 50%)">Mag 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Str growth: 25% (Weakness ≤ 25%)">Str 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9166,16 +8947,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Fianna" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Wiseman</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Mag growth: 55% (Strength ≥ 50%)">Mag 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Def growth: 20% (Weakness ≤ 25%)">Def 20%</span><span class="stat-chip weakness" title="Lck growth: 25% (Weakness ≤ 25%)">Lck 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9230,16 +9001,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Gaitz" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Orichaldia</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9294,16 +9055,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Goliath" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 55% (Strength ≥ 50%)">HP 55%</span><span class="stat-chip strength" title="Str growth: 60% (Strength ≥ 50%)">Str 60%</span><span class="stat-chip strength" title="Def growth: 50% (Strength ≥ 50%)">Def 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 5% (Weakness ≤ 25%)">Mag 5%</span><span class="stat-chip weakness" title="Spd growth: 15% (Weakness ≤ 25%)">Spd 15%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span><span class="stat-chip weakness" title="Cha growth: 20% (Weakness ≤ 25%)">Cha 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9358,16 +9109,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-cai" data-build="Guzran" data-build-route="cai" title="Click to edit Guzran's class path on Cai (Swordmaster)">
           <span>🦊</span> <span>Swordmaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 50% (Strength ≥ 50%)">Spd 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9422,16 +9163,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Halvin" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Bow Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 60% (Strength ≥ 50%)">Dex 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9486,16 +9217,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Inyoni" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Bow Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9550,16 +9271,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Io" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Orichaldia</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None (max 45%)</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 25% (Weakness ≤ 25%)">Mag 25%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9614,16 +9325,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Jasmine" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Castle Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9678,16 +9379,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Jester" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Shadow Seeker</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 60% (Strength ≥ 50%)">Spd 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 15% (Weakness ≤ 25%)">Mag 15%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9742,16 +9433,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Kiroc" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Bow Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 55% (Strength ≥ 50%)">HP 55%</span><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span><span class="stat-chip strength" title="Spd growth: 55% (Strength ≥ 50%)">Spd 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 15% (Weakness ≤ 25%)">Mag 15%</span><span class="stat-chip weakness" title="Res growth: 15% (Weakness ≤ 25%)">Res 15%</span><span class="stat-chip weakness" title="Cha growth: 25% (Weakness ≤ 25%)">Cha 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9806,16 +9487,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-theodora" data-build="Lilian" data-build-route="theodora" title="Click to edit Lilian's class path on Theodora (Bow Adept)">
           <span>🐺</span> <span>Bow Adept</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 55% (Strength ≥ 50%)">Dex 55%</span><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Cha growth: 25% (Weakness ≤ 25%)">Cha 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9870,16 +9541,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Loretta" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Celestial Trooper</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 55% (Strength ≥ 50%)">Spd 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9934,16 +9595,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Ludia" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Swordmaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 55% (Strength ≥ 50%)">Spd 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -9998,16 +9649,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-theodora" data-build="Lysander" data-build-route="theodora" title="Click to edit Lysander's class path on Theodora (Bau Lord)">
           <span>🐺</span> <span>Bau Lord</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 50% (Strength ≥ 50%)">Spd 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 25% (Weakness ≤ 25%)">Mag 25%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10062,16 +9703,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Majide" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 65% (Strength ≥ 50%)">HP 65%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 15% (Weakness ≤ 25%)">Mag 15%</span><span class="stat-chip weakness" title="Spd growth: 20% (Weakness ≤ 25%)">Spd 20%</span><span class="stat-chip weakness" title="Res growth: 10% (Weakness ≤ 25%)">Res 10%</span><span class="stat-chip weakness" title="Lck growth: 25% (Weakness ≤ 25%)">Lck 25%</span><span class="stat-chip weakness" title="Cha growth: 5% (Weakness ≤ 25%)">Cha 5%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10126,16 +9757,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-dietrich" data-build="Mikaela" data-build-route="dietrich" title="Click to edit Mikaela's class path on Dietrich (Bau Lord)">
           <span>🦁</span> <span>Bau Lord</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10190,16 +9811,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-leda" data-build="Mu" data-build-route="leda" title="Click to edit Mu's class path on Leda (Battlemaster)">
           <span>🦅</span> <span>Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span><span class="stat-chip strength" title="Spd growth: 50% (Strength ≥ 50%)">Spd 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 25% (Weakness ≤ 25%)">Mag 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10254,16 +9865,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Nezha" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 25% (Weakness ≤ 25%)">Mag 25%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span><span class="stat-chip weakness" title="Cha growth: 25% (Weakness ≤ 25%)">Cha 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10318,16 +9919,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Ninae" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Sentinel</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10382,16 +9973,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Noctula" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10446,16 +10027,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Nuzzuo" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Bow Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span><span class="stat-chip strength" title="Spd growth: 55% (Strength ≥ 50%)">Spd 55%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 15% (Weakness ≤ 25%)">Mag 15%</span><span class="stat-chip weakness" title="Def growth: 20% (Weakness ≤ 25%)">Def 20%</span><span class="stat-chip weakness" title="Res growth: 15% (Weakness ≤ 25%)">Res 15%</span><span class="stat-chip weakness" title="Lck growth: 25% (Weakness ≤ 25%)">Lck 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10510,16 +10081,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Nydine" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Celestial Trooper</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None (max 45%)</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10574,16 +10135,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-leda" data-build="Olympia" data-build-route="leda" title="Click to edit Olympia's class path on Leda (Wiseman)">
           <span>🦅</span> <span>Wiseman</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Mag growth: 50% (Strength ≥ 50%)">Mag 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10638,16 +10189,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Peppe" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Swordmaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Spd growth: 60% (Strength ≥ 50%)">Spd 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 25% (Weakness ≤ 25%)">Mag 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10702,16 +10243,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-cai" data-build="Peter" data-build-route="cai" title="Click to edit Peter's class path on Cai (Bow Adept)">
           <span>🦊</span> <span>Bow Adept</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 60% (Strength ≥ 50%)">Dex 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10766,16 +10297,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Seteth" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Bau Lord</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Cha growth: 50% (Strength ≥ 50%)">Cha 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10830,16 +10351,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Sha Lan" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Sentinel</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10894,16 +10405,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Simon" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span><span class="stat-chip strength" title="Str growth: 50% (Strength ≥ 50%)">Str 50%</span><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -10958,16 +10459,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-leda" data-build="Sirocco" data-build-route="leda" title="Click to edit Sirocco's class path on Leda (High Savant)">
           <span>🦅</span> <span>High Savant</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11022,16 +10513,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-theodora" data-build="Sofia" data-build-route="theodora" title="Click to edit Sofia's class path on Theodora (Wiseman)">
           <span>🐺</span> <span>Wiseman</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None (max 45%)</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Def growth: 25% (Weakness ≤ 25%)">Def 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11086,16 +10567,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-cai" data-build="Tialla" data-build-route="cai" title="Click to edit Tialla's class path on Cai (Valkyrium)">
           <span>🦊</span> <span>Valkyrium</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Lck growth: 50% (Strength ≥ 50%)">Lck 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Str growth: 25% (Weakness ≤ 25%)">Str 25%</span><span class="stat-chip weakness" title="Def growth: 20% (Weakness ≤ 25%)">Def 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11150,16 +10621,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-theodora" data-build="Tobias" data-build-route="theodora" title="Click to edit Tobias's class path on Theodora (Great Knight)">
           <span>🐺</span> <span>Great Knight</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 55% (Strength ≥ 50%)">HP 55%</span><span class="stat-chip strength" title="Str growth: 60% (Strength ≥ 50%)">Str 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 15% (Weakness ≤ 25%)">Mag 15%</span><span class="stat-chip weakness" title="Spd growth: 25% (Weakness ≤ 25%)">Spd 25%</span><span class="stat-chip weakness" title="Res growth: 20% (Weakness ≤ 25%)">Res 20%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11214,16 +10675,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-cai" data-build="Ultand" data-build-route="cai" title="Click to edit Ultand's class path on Cai (Sentinel)">
           <span>🦊</span> <span>Sentinel</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Lck growth: 55% (Strength ≥ 50%)">Lck 55%</span><span class="stat-chip strength" title="Cha growth: 50% (Strength ≥ 50%)">Cha 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11278,16 +10729,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Ursula" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Shadow Seeker</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 50% (Strength ≥ 50%)">Dex 50%</span><span class="stat-chip strength" title="Spd growth: 50% (Strength ≥ 50%)">Spd 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-empty-hint">None</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11342,16 +10783,6 @@ button {
       <td class="col-class"><button class="badge-active-class badge-route-dietrich" data-build="Yang Jie" data-build-route="dietrich" title="Click to edit Yang Jie's class path on Dietrich (Wiseman)">
           <span>🦁</span> <span>Wiseman</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="HP growth: 50% (Strength ≥ 50%)">HP 50%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Cha growth: 25% (Weakness ≤ 25%)">Cha 25%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -11406,16 +10837,6 @@ button {
       <td class="col-class"><button class="badge-active-class empty" data-build="Zarcone" data-build-route="cai" title="Click to assign character class path">
           <span>👑 Battlemaster</span>
         </button></td>
-      <td class="col-stats"><div class="stat-profile-cell">
-          <div class="stat-profile-row strengths">
-            <span class="stat-profile-badge tag-str" title="Strengths (≥ 50%)">▲</span>
-            <div class="stat-chips-list"><span class="stat-chip strength" title="Dex growth: 60% (Strength ≥ 50%)">Dex 60%</span></div>
-          </div>
-          <div class="stat-profile-row weaknesses">
-            <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ 25%)">▼</span>
-            <div class="stat-chips-list"><span class="stat-chip weakness" title="Mag growth: 20% (Weakness ≤ 25%)">Mag 20%</span><span class="stat-chip weakness" title="Res growth: 25% (Weakness ≤ 25%)">Res 25%</span><span class="stat-chip weakness" title="Cha growth: 15% (Weakness ≤ 25%)">Cha 15%</span></div>
-          </div>
-        </div></td>
       <td class="col-aptitudes"><div class="aptitude-cell">
           <div class="aptitude-row boons">
             <span class="aptitude-tag-label boon" title="Boons (+Skill EXP &amp; Certification bonus)">▲ Boons:</span>
@@ -20456,10 +19877,6 @@ if (typeof window !== 'undefined') {
       req: 'all',
       usage: 'all', // 'all' | 'selected' | 'unselected'
       sort: 'name',
-      strengthThreshold: 50,
-      weaknessThreshold: 25,
-      statGrowthMode: 'base', // 'base' | 'effective'
-      showStatFilter: false,
     },
     selectedBuildChar: 'Cai',
     expectedStatsInputs: {}, // charName -> { level: number, currentClass: string }
@@ -20524,36 +19941,6 @@ if (typeof window !== 'undefined') {
       safeStorage.setItem('fe_fw_planner_collapsed_sections_v1', JSON.stringify(state.collapsedSections));
     } catch (e) {
       console.warn("Could not save collapsed sections", e);
-    }
-  }
-
-  function saveStatThresholds() {
-    try {
-      safeStorage.setItem('fe_fw_stat_thresholds_v1', JSON.stringify({
-        strength: state.filters.strengthThreshold,
-        weakness: state.filters.weaknessThreshold,
-        mode: state.filters.statGrowthMode,
-        showStatFilter: Boolean(state.filters.showStatFilter)
-      }));
-    } catch (e) {
-      console.warn("Could not save stat thresholds", e);
-    }
-  }
-
-  function syncStatFilterVisibility() {
-    const bar = document.getElementById('statThresholdBar');
-    const btn = document.getElementById('btnToggleStatFilter');
-    const indicator = document.getElementById('statFilterIndicator');
-    const isShown = Boolean(state.filters.showStatFilter);
-
-    if (bar) {
-      bar.style.display = isShown ? 'flex' : 'none';
-    }
-    if (btn) {
-      btn.classList.toggle('active', isShown);
-    }
-    if (indicator) {
-      indicator.textContent = isShown ? '▾' : '▸';
     }
   }
 
@@ -22162,58 +21549,6 @@ if (typeof window !== 'undefined') {
         return a.name.localeCompare(b.name);
       }
 
-      if (state.filters.sort === 'stats' || state.filters.sort === 'stats_strengths') {
-        const getProfile = (c) => {
-          const bg = getCharacterBaseGrowths(c.name);
-          let clg = {};
-          if (state.filters.statGrowthMode === 'effective') {
-            const sortRoute = currentRouteFilter !== 'all' ? currentRouteFilter : (state.selectedBuildRoute || 'cai');
-            const cr = getNormalizedClassRoute(c.name, sortRoute);
-            const clObj = cr.activeClass ? classMap.get(cr.activeClass) : null;
-            if (clObj && clObj.growth) clg = clObj.growth;
-          }
-          let strCount = 0;
-          let maxVal = -999;
-          ['HP', 'Str', 'Mag', 'Dex', 'Spd', 'Def', 'Res', 'Lck', 'Cha'].forEach(st => {
-            const v = Math.max(0, (bg[st] || 0) + (clg[st] || 0));
-            if (v >= (state.filters.strengthThreshold || 50)) strCount++;
-            if (v > maxVal) maxVal = v;
-          });
-          return { strCount, maxVal };
-        };
-        const pA = getProfile(a);
-        const pB = getProfile(b);
-        if (pA.strCount !== pB.strCount) return pB.strCount - pA.strCount;
-        if (pA.maxVal !== pB.maxVal) return pB.maxVal - pA.maxVal;
-        return a.name.localeCompare(b.name);
-      }
-
-      if (state.filters.sort === 'stats_weaknesses') {
-        const getProfile = (c) => {
-          const bg = getCharacterBaseGrowths(c.name);
-          let clg = {};
-          if (state.filters.statGrowthMode === 'effective') {
-            const sortRoute = currentRouteFilter !== 'all' ? currentRouteFilter : (state.selectedBuildRoute || 'cai');
-            const cr = getNormalizedClassRoute(c.name, sortRoute);
-            const clObj = cr.activeClass ? classMap.get(cr.activeClass) : null;
-            if (clObj && clObj.growth) clg = clObj.growth;
-          }
-          let weakCount = 0;
-          let minVal = 999;
-          ['HP', 'Str', 'Mag', 'Dex', 'Spd', 'Def', 'Res', 'Lck', 'Cha'].forEach(st => {
-            const v = Math.max(0, (bg[st] || 0) + (clg[st] || 0));
-            if (v <= (state.filters.weaknessThreshold || 25)) weakCount++;
-            if (v < minVal) minVal = v;
-          });
-          return { weakCount, minVal };
-        };
-        const pA = getProfile(a);
-        const pB = getProfile(b);
-        if (pA.weakCount !== pB.weakCount) return pB.weakCount - pA.weakCount;
-        if (pA.minVal !== pB.minVal) return pA.minVal - pB.minVal;
-        return a.name.localeCompare(b.name);
-      }
-
       if (state.filters.sort === 'aptitudes' || state.filters.sort === 'aptitudes_boons') {
         const getBoonCount = (c) => {
           const b = (FW.characterBuilds && FW.characterBuilds[c.name]) || {};
@@ -22263,7 +21598,7 @@ if (typeof window !== 'undefined') {
     });
 
     if (chars.length === 0) {
-      container.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 2rem; color: var(--text-dim);">No characters match current filters.</td></tr>`;
+      container.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 2rem; color: var(--text-dim);">No characters match current filters.</td></tr>`;
       return;
     }
 
@@ -22478,83 +21813,6 @@ if (typeof window !== 'undefined') {
               `;
             })()}
           </td>
-          <td class="col-stats">
-            ${(() => {
-              const strThresh = state.filters.strengthThreshold || 50;
-              const weakThresh = state.filters.weaknessThreshold || 25;
-              const statMode = state.filters.statGrowthMode || 'base';
-
-              const pBonus = getCharacterPersonalGrowthBonus(char.name);
-              const baseGrowths = getCharacterBaseGrowths(char.name);
-              let classGrowths = {};
-              if (statMode === 'effective') {
-                const routeForClass = currentRouteFilter !== 'all' ? currentRouteFilter : (state.selectedBuildRoute || 'cai');
-                const crObj = getNormalizedClassRoute(char.name, routeForClass);
-                const clName = crObj.activeClass;
-                const clObj = clName ? classMap.get(clName) : null;
-                if (clObj && clObj.growth) classGrowths = clObj.growth;
-              }
-
-              const statsOrder = ['HP', 'Str', 'Mag', 'Dex', 'Spd', 'Def', 'Res', 'Lck', 'Cha'];
-              const strengths = [];
-              const weaknesses = [];
-              let minStatVal = 999;
-              let maxStatVal = -999;
-
-              statsOrder.forEach(st => {
-                const val = Math.max(0, (baseGrowths[st] || 0) + (classGrowths[st] || 0));
-                if (val < minStatVal) minStatVal = val;
-                if (val > maxStatVal) maxStatVal = val;
-                if (val >= strThresh) strengths.push({ stat: st, val });
-                if (val <= weakThresh) weaknesses.push({ stat: st, val });
-              });
-
-              if (strengths.length === 0 && weaknesses.length === 0) {
-                return `
-                  <div class="stat-profile-cell">
-                    ${pBonus ? `
-                      <div style="margin-bottom:0.25rem;">
-                        <span class="badge" style="background:rgba(216,178,94,0.15); color:var(--gold); border:1px solid rgba(216,178,94,0.4); font-size:0.68rem; font-weight:700; padding:0.1rem 0.35rem;" title="${pBonus.desc || `${pBonus.skill} active (+${pBonus.bonus}%)`}">
-                          🌱 ${pBonus.skill} (+${pBonus.bonus}%)
-                        </span>
-                      </div>
-                    ` : ''}
-                    <div class="stat-balanced-pill" title="Balanced stat distribution: All growths are between ${minStatVal}% and ${maxStatVal}% (neither ≥ ${strThresh}% nor ≤ ${weakThresh}%)">
-                      <span>⚖️ Balanced</span> <span class="stat-balanced-range">(${minStatVal}–${maxStatVal}%)</span>
-                    </div>
-                  </div>
-                `;
-              }
-
-              const strChips = strengths.length > 0
-                ? strengths.map(s => `<span class="stat-chip strength" title="${s.stat} growth: ${s.val}% (Strength ≥ ${strThresh}%)">${s.stat} ${s.val}%</span>`).join('')
-                : `<span class="stat-empty-hint">None (max ${maxStatVal}%)</span>`;
-
-              const weakChips = weaknesses.length > 0
-                ? weaknesses.map(w => `<span class="stat-chip weakness" title="${w.stat} growth: ${w.val}% (Weakness ≤ ${weakThresh}%)">${w.stat} ${w.val}%</span>`).join('')
-                : `<span class="stat-empty-hint">None</span>`;
-
-              return `
-                <div class="stat-profile-cell">
-                  ${pBonus ? `
-                    <div style="margin-bottom:0.25rem;">
-                      <span class="badge" style="background:rgba(216,178,94,0.15); color:var(--gold); border:1px solid rgba(216,178,94,0.4); font-size:0.68rem; font-weight:700; padding:0.1rem 0.35rem;" title="${pBonus.desc || `${pBonus.skill} active (+${pBonus.bonus}%)`}">
-                        🌱 ${pBonus.skill} (+${pBonus.bonus}%)
-                      </span>
-                    </div>
-                  ` : ''}
-                  <div class="stat-profile-row strengths">
-                    <span class="stat-profile-badge tag-str" title="Strengths (≥ ${strThresh}%)">▲</span>
-                    <div class="stat-chips-list">${strChips}</div>
-                  </div>
-                  <div class="stat-profile-row weaknesses">
-                    <span class="stat-profile-badge tag-weak" title="Weaknesses (≤ ${weakThresh}%)">▼</span>
-                    <div class="stat-chips-list">${weakChips}</div>
-                  </div>
-                </div>
-              `;
-            })()}
-          </td>
           <td class="col-aptitudes">
             ${(() => {
               const allSkills = ["Sword", "Spear", "Axe", "Bow", "Gauntlet", "Black Magic", "White Magic", "Authority", "Infantry", "Riding", "Armor", "Flying"];
@@ -22719,53 +21977,17 @@ if (typeof window !== 'undefined') {
       });
     });
 
-    // Sync Stat Threshold controls
-    const curStrThresh = state.filters.strengthThreshold || 50;
-    const curWeakThresh = state.filters.weaknessThreshold || 25;
-    const curStatMode = state.filters.statGrowthMode || 'base';
-
-    document.querySelectorAll('#strengthToggleCluster .btn-thresh-toggle').forEach(btn => {
-      const v = parseInt(btn.dataset.val, 10);
-      const isAct = v === curStrThresh;
-      btn.classList.toggle('active', isAct);
-      btn.classList.toggle('strength', isAct);
-    });
-    const strSelect = document.getElementById('selectStrengthThresh');
-    if (strSelect) strSelect.value = String(curStrThresh);
-
-    document.querySelectorAll('#weaknessToggleCluster .btn-thresh-toggle').forEach(btn => {
-      const v = parseInt(btn.dataset.val, 10);
-      const isAct = v === curWeakThresh;
-      btn.classList.toggle('active', isAct);
-      btn.classList.toggle('weakness', isAct);
-    });
-    const weakSelect = document.getElementById('selectWeaknessThresh');
-    if (weakSelect) weakSelect.value = String(curWeakThresh);
-
-    document.querySelectorAll('#statModeToggleCluster .btn-thresh-toggle').forEach(btn => {
-      const isAct = btn.dataset.statMode === curStatMode;
-      btn.classList.toggle('active', isAct);
-      btn.classList.toggle('mode', isAct);
-    });
-
-    syncStatFilterVisibility();
-
     // Update active sort indicator on table headers
     document.querySelectorAll('.matrix-table .sortable-th').forEach(th => {
       const sortCol = th.dataset.sortCol;
-      const isStatsSort = sortCol === 'stats' && (state.filters.sort === 'stats' || state.filters.sort === 'stats_strengths' || state.filters.sort === 'stats_weaknesses');
       const isAptSort = sortCol === 'aptitudes' && (state.filters.sort === 'aptitudes' || state.filters.sort === 'aptitudes_boons' || state.filters.sort === 'aptitudes_banes');
       const isMagicSort = sortCol === 'magic' && (state.filters.sort === 'magic' || state.filters.sort === 'magic_total');
       const isSquadsSort = sortCol === 'squads' && (state.filters.sort === 'selected_count' || state.filters.sort === 'squads');
-      const isSorted = state.filters.sort === sortCol || isStatsSort || isAptSort || isMagicSort || isSquadsSort;
+      const isSorted = state.filters.sort === sortCol || isAptSort || isMagicSort || isSquadsSort;
       th.classList.toggle('is-sorted', isSorted);
       const icon = th.querySelector('.sort-icon');
       if (icon) {
-        if (sortCol === 'stats' && state.filters.sort === 'stats_weaknesses') {
-          icon.textContent = ' ▼ (Weak)';
-        } else if (sortCol === 'stats' && (state.filters.sort === 'stats_strengths' || state.filters.sort === 'stats')) {
-          icon.textContent = ' ▲ (Str)';
-        } else if (sortCol === 'aptitudes' && state.filters.sort === 'aptitudes_banes') {
+        if (sortCol === 'aptitudes' && state.filters.sort === 'aptitudes_banes') {
           icon.textContent = ' ▼ (Banes)';
         } else if (sortCol === 'aptitudes' && (state.filters.sort === 'aptitudes_boons' || state.filters.sort === 'aptitudes')) {
           icon.textContent = ' ▲ (Boons)';
@@ -27963,14 +27185,6 @@ if (typeof window !== 'undefined') {
       if (savedCollapsed) {
         state.collapsedSections = Object.assign(state.collapsedSections, JSON.parse(savedCollapsed));
       }
-      const savedThresh = safeStorage.getItem('fe_fw_stat_thresholds_v1');
-      if (savedThresh) {
-        const parsed = JSON.parse(savedThresh);
-        if (parsed.strength != null) state.filters.strengthThreshold = parsed.strength;
-        if (parsed.weakness != null) state.filters.weaknessThreshold = parsed.weakness;
-        if (parsed.mode != null) state.filters.statGrowthMode = parsed.mode;
-        if (parsed.showStatFilter != null) state.filters.showStatFilter = Boolean(parsed.showStatFilter);
-      }
     } catch (e) {
       console.warn("Storage access failed", e);
     }
@@ -28069,13 +27283,7 @@ if (typeof window !== 'undefined') {
         if (e.target.closest('.btn-col-hide')) return;
         const sortCol = th.dataset.sortCol;
         if (sortCol) {
-          if (sortCol === 'stats') {
-            if (state.filters.sort === 'stats_strengths' || state.filters.sort === 'stats') {
-              state.filters.sort = 'stats_weaknesses';
-            } else {
-              state.filters.sort = 'stats_strengths';
-            }
-          } else if (sortCol === 'aptitudes') {
+          if (sortCol === 'aptitudes') {
             if (state.filters.sort === 'aptitudes_boons' || state.filters.sort === 'aptitudes') {
               state.filters.sort = 'aptitudes_banes';
             } else {
@@ -28090,84 +27298,6 @@ if (typeof window !== 'undefined') {
           renderMatrixView();
         }
       });
-    });
-
-    // Stat Threshold Bar Controls (Quick Toggles & Dropdowns)
-    document.querySelectorAll('#strengthToggleCluster .btn-thresh-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const val = parseInt(btn.dataset.val, 10);
-        if (!isNaN(val)) {
-          state.filters.strengthThreshold = val;
-          saveStatThresholds();
-          renderMatrixView();
-        }
-      });
-    });
-
-    const selectStrengthThresh = document.getElementById('selectStrengthThresh');
-    selectStrengthThresh?.addEventListener('change', (e) => {
-      const val = parseInt(e.target.value, 10);
-      if (!isNaN(val)) {
-        state.filters.strengthThreshold = val;
-        saveStatThresholds();
-        renderMatrixView();
-      }
-    });
-
-    document.querySelectorAll('#weaknessToggleCluster .btn-thresh-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const val = parseInt(btn.dataset.val, 10);
-        if (!isNaN(val)) {
-          state.filters.weaknessThreshold = val;
-          saveStatThresholds();
-          renderMatrixView();
-        }
-      });
-    });
-
-    const selectWeaknessThresh = document.getElementById('selectWeaknessThresh');
-    selectWeaknessThresh?.addEventListener('change', (e) => {
-      const val = parseInt(e.target.value, 10);
-      if (!isNaN(val)) {
-        state.filters.weaknessThreshold = val;
-        saveStatThresholds();
-        renderMatrixView();
-      }
-    });
-
-    document.querySelectorAll('#statModeToggleCluster .btn-thresh-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mode = btn.dataset.statMode;
-        if (mode) {
-          state.filters.statGrowthMode = mode;
-          saveStatThresholds();
-          renderMatrixView();
-        }
-      });
-    });
-
-    const btnResetThresh = document.getElementById('btnResetThresh');
-    btnResetThresh?.addEventListener('click', () => {
-      state.filters.strengthThreshold = 50;
-      state.filters.weaknessThreshold = 25;
-      state.filters.statGrowthMode = 'base';
-      saveStatThresholds();
-      renderMatrixView();
-      showToast('Reset stat thresholds: Strengths ≥ 50%, Weaknesses ≤ 25%', 'info');
-    });
-
-    const btnToggleStatFilter = document.getElementById('btnToggleStatFilter');
-    btnToggleStatFilter?.addEventListener('click', () => {
-      state.filters.showStatFilter = !state.filters.showStatFilter;
-      saveStatThresholds();
-      syncStatFilterVisibility();
-    });
-
-    const btnCloseStatFilter = document.getElementById('btnCloseStatFilter');
-    btnCloseStatFilter?.addEventListener('click', () => {
-      state.filters.showStatFilter = false;
-      saveStatThresholds();
-      syncStatFilterVisibility();
     });
 
     // Sidebar Filters in Character Class Path View
@@ -28302,7 +27432,6 @@ if (typeof window !== 'undefined') {
     { id: 'requirement', label: 'Requirement' },
     { id: 'earliest', label: 'Earliest Chapter' },
     { id: 'class', label: 'Class Path (Active)' },
-    { id: 'stats', label: 'Stat Strengths & Weaknesses' },
     { id: 'aptitudes', label: 'Boons & Banes' },
     { id: 'magic', label: 'Magic Skills & Spells' }
   ];
@@ -28314,11 +27443,14 @@ if (typeof window !== 'undefined') {
     const countBadge = document.getElementById('colVisibleCount');
     if (!table || !btnToggle || !menu) return;
 
+    const validColIds = new Set(ALL_PLANNER_COLUMNS.map(c => c.id));
     state.hiddenCols = new Set();
     try {
       const saved = safeStorage.getItem('fe_fw_hidden_columns_v1');
       if (saved) {
-        JSON.parse(saved).forEach(c => state.hiddenCols.add(c));
+        JSON.parse(saved).forEach(c => {
+          if (validColIds.has(c)) state.hiddenCols.add(c);
+        });
       }
     } catch (e) {}
 
